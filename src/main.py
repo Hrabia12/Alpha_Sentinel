@@ -4,7 +4,13 @@ import time
 import logging
 from datetime import datetime, timedelta
 import os
+import sys
 from dotenv import load_dotenv
+
+# Add parent directory to path for imports
+parent_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if parent_dir not in sys.path:
+    sys.path.insert(0, parent_dir)
 
 # Import our modules
 from config.database import DatabaseManager
@@ -18,6 +24,7 @@ from signals.signal_generator import TradingSignalGenerator
 load_dotenv()
 
 # Configure logging
+os.makedirs("logs", exist_ok=True)  # Ensure logs directory exists
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
@@ -57,8 +64,59 @@ class AlphaSentinel:
 
         logger.info("Alpha Sentinel initialized successfully")
 
+    def _clean_data_for_json(self, data):
+        """Clean data to make it JSON serializable"""
+        import pandas as pd
+        from datetime import datetime
+
+        if isinstance(data, dict):
+            cleaned = {}
+            for key, value in data.items():
+                if isinstance(value, pd.Timestamp):
+                    cleaned[key] = value.isoformat()
+                elif isinstance(value, (pd.Series, pd.DataFrame)):
+                    # Convert pandas objects to native Python types
+                    cleaned[key] = (
+                        value.to_dict() if hasattr(value, "to_dict") else str(value)
+                    )
+                elif hasattr(value, "item"):  # numpy scalars
+                    cleaned[key] = value.item()
+                elif isinstance(value, (list, tuple)):
+                    cleaned[key] = [self._clean_value(item) for item in value]
+                else:
+                    cleaned[key] = self._clean_value(value)
+            return cleaned
+        elif isinstance(data, (list, tuple)):
+            return [self._clean_data_for_json(item) for item in data]
+        else:
+            return self._clean_value(data)
+
+    def _clean_value(self, value):
+        """Clean individual values for JSON serialization"""
+        import pandas as pd
+        import numpy as np
+        from datetime import datetime
+
+        if isinstance(value, pd.Timestamp):
+            return value.isoformat()
+        elif isinstance(value, (pd.Series, pd.DataFrame)):
+            return value.to_dict() if hasattr(value, "to_dict") else str(value)
+        elif isinstance(value, np.integer):
+            return int(value)
+        elif isinstance(value, np.floating):
+            return float(value)
+        elif isinstance(value, np.ndarray):
+            return value.tolist()
+        elif hasattr(value, "item"):  # Other numpy scalars
+            return value.item()
+        else:
+            return value
+
     def _load_ml_models(self):
         """Load ML models for each symbol"""
+        # Ensure models directory exists
+        os.makedirs("models", exist_ok=True)
+
         for symbol in self.symbols:
             model_path = f"models/{symbol.replace('/', '_')}_lstm.pth"
             if os.path.exists(model_path):
@@ -77,8 +135,11 @@ class AlphaSentinel:
             market_data = await self.data_collector.fetch_real_time_data(symbol)
 
             if market_data:
+                # Convert any Timestamp objects to strings
+                cleaned_data = self._clean_data_for_json(market_data)
+
                 # Store in database
-                result = self.db_manager.insert_market_data(market_data)
+                result = self.db_manager.insert_market_data(cleaned_data)
                 if result:
                     logger.info(f"Stored market data for {symbol}")
                     return market_data
@@ -95,6 +156,9 @@ class AlphaSentinel:
         try:
             logger.info(f"Analyzing {symbol}")
 
+            # Import pandas here to avoid potential issues
+            import pandas as pd
+
             # 1. Get recent market data from database
             recent_data = self.db_manager.get_recent_data(symbol, limit=100)
 
@@ -105,9 +169,11 @@ class AlphaSentinel:
                     symbol, "1h", 7
                 )
                 if not historical_df.empty:
-                    # Store historical data
+                    # Store historical data with proper data cleaning
                     for _, row in historical_df.iterrows():
-                        self.db_manager.insert_market_data(row.to_dict())
+                        row_dict = row.to_dict()
+                        cleaned_row = self._clean_data_for_json(row_dict)
+                        self.db_manager.insert_market_data(cleaned_row)
                     recent_data = self.db_manager.get_recent_data(symbol, limit=100)
 
             if len(recent_data) < 20:
@@ -131,9 +197,12 @@ class AlphaSentinel:
                 **latest_indicators,
             }
 
+            # Clean indicators data for JSON serialization
+            cleaned_indicators = self._clean_data_for_json(indicators_data)
+
             try:
                 self.db_manager.client.table("technical_indicators").insert(
-                    indicators_data
+                    cleaned_indicators
                 ).execute()
             except Exception as e:
                 logger.error(f"Error storing indicators: {e}")
@@ -161,7 +230,8 @@ class AlphaSentinel:
                             "confidence_score": ml_prediction["confidence"],
                         }
 
-                        self.db_manager.insert_prediction(prediction_data)
+                        cleaned_prediction = self._clean_data_for_json(prediction_data)
+                        self.db_manager.insert_prediction(cleaned_prediction)
 
                 except Exception as e:
                     logger.error(f"ML prediction failed for {symbol}: {e}")
@@ -180,9 +250,11 @@ class AlphaSentinel:
                 "confidence": sentiment_data.get("confidence", 0),
             }
 
+            cleaned_sentiment = self._clean_data_for_json(sentiment_record)
+
             try:
                 self.db_manager.client.table("sentiment_data").insert(
-                    sentiment_record
+                    cleaned_sentiment
                 ).execute()
             except Exception as e:
                 logger.error(f"Error storing sentiment: {e}")
@@ -208,9 +280,11 @@ class AlphaSentinel:
                 "reason": "; ".join(signal["reasons"]),
             }
 
+            cleaned_signal = self._clean_data_for_json(signal_data)
+
             try:
                 self.db_manager.client.table("trading_signals").insert(
-                    signal_data
+                    cleaned_signal
                 ).execute()
                 logger.info(
                     f"Generated {signal['signal_type']} signal for {symbol} with confidence {signal['confidence']:.3f}"
@@ -277,9 +351,11 @@ class AlphaSentinel:
                 "profit_loss": 0.0,  # If tracking P&L
             }
 
+            cleaned_performance = self._clean_data_for_json(performance_data)
+
             # Store in database
             self.db_manager.client.table("bot_performance").insert(
-                performance_data
+                cleaned_performance
             ).execute()
 
         except Exception as e:

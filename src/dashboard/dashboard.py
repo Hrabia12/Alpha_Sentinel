@@ -1,3 +1,4 @@
+import pytz
 import streamlit as st
 import pandas as pd
 import plotly.graph_objects as go
@@ -8,6 +9,40 @@ import asyncio
 import sys
 import os
 import time  # Add missing import
+
+
+def safe_datetime_filter(df, timestamp_column, hours_back=24):
+    """Safely filter datetime data handling timezone issues"""
+    if df.empty or timestamp_column not in df.columns:
+        return df
+
+    try:
+        # Convert timestamp column to datetime if it's not already
+        df_copy = df.copy()
+        df_copy[timestamp_column] = pd.to_datetime(df_copy[timestamp_column])
+
+        # Get current time
+        now = datetime.now()
+        cutoff_time = now - timedelta(hours=hours_back)
+
+        # Check if the timestamp column has timezone info
+        if df_copy[timestamp_column].dt.tz is not None:
+            # Column is timezone-aware, make cutoff_time timezone-aware
+            if cutoff_time.tzinfo is None:
+                # Assume UTC if no timezone specified
+                cutoff_time = pytz.UTC.localize(cutoff_time)
+        else:
+            # Column is timezone-naive, ensure cutoff_time is also naive
+            if hasattr(cutoff_time, "tzinfo") and cutoff_time.tzinfo is not None:
+                cutoff_time = cutoff_time.replace(tzinfo=None)
+
+        return df_copy[df_copy[timestamp_column] > cutoff_time]
+
+    except Exception as e:
+        st.error(f"Error filtering datetime data: {e}")
+        # Return original dataframe if filtering fails
+        return df
+
 
 # Add parent directory to path to import our modules
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -58,7 +93,6 @@ def load_trading_signals():
             st.session_state.db_manager.client.table("trading_signals")
             .select("*")
             .order("timestamp", desc=True)
-            .limit(100)
             .execute()
         )
 
@@ -198,17 +232,11 @@ def main():
         )
 
     with col4:
-        # Fix: Check if signals_df is empty and has timestamp column before filtering
+        # Fix: Use safe datetime filtering
         try:
-            if not signals_df.empty and "timestamp" in signals_df.columns:
-                recent_signals = len(
-                    signals_df[
-                        signals_df["timestamp"] > datetime.now() - timedelta(hours=24)
-                    ]
-                )
-            else:
-                recent_signals = 0
-        except (KeyError, AttributeError) as e:
+            recent_signals_df = safe_datetime_filter(signals_df, "timestamp", 24)
+            recent_signals = len(recent_signals_df)
+        except Exception as e:
             st.error(f"Error calculating recent signals: {e}")
             recent_signals = 0
         st.metric(label="Signals (24h)", value=recent_signals)
@@ -222,7 +250,7 @@ def main():
             rows=3,
             cols=1,
             subplot_titles=("Price & Signals", "Volume", "RSI"),
-            vertical_spacing=0.05,
+            vertical_spacing=0.1,
             row_heights=[0.6, 0.2, 0.2],
         )
 
@@ -485,4 +513,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

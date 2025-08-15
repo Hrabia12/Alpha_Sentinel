@@ -10,49 +10,31 @@ import sys
 import os
 import argparse
 
-# Add the project root to Python path
-project_root = os.path.dirname(os.path.abspath(__file__))
-if project_root not in sys.path:
-    sys.path.insert(0, project_root)
-
 _original_fillna = pd.DataFrame.fillna
 
 
 def start_bot():
     """Start the main bot"""
     print("🤖 Starting Alpha Sentinel Bot...")
-    # Change to project directory and run
-    os.chdir(project_root)
-    env = os.environ.copy()
-    env["PYTHONPATH"] = project_root
-    subprocess.run([sys.executable, "src/main.py"], env=env, cwd=project_root)
+    subprocess.run([sys.executable, "src/main.py"])
 
 
 def start_dashboard():
     """Start the dashboard"""
     print("📊 Starting Alpha Sentinel Dashboard...")
-    os.chdir(project_root)
-    env = os.environ.copy()
-    env["PYTHONPATH"] = project_root
-    subprocess.run([sys.executable, "run_dashboard.py"], env=env, cwd=project_root)
+    subprocess.run([sys.executable, "run_dashboard.py"])
 
 
 def train_models():
     """Train ML models"""
     print("🧠 Training ML Models...")
-    os.chdir(project_root)
-    env = os.environ.copy()
-    env["PYTHONPATH"] = project_root
-    subprocess.run([sys.executable, "train_models.py"], env=env, cwd=project_root)
+    subprocess.run([sys.executable, "train_models.py"])
 
 
 def test_system():
     """Test all system components"""
     print("🧪 Testing System Components...")
-    os.chdir(project_root)
-    env = os.environ.copy()
-    env["PYTHONPATH"] = project_root
-    subprocess.run([sys.executable, "test_system.py"], env=env, cwd=project_root)
+    subprocess.run([sys.executable, "test_system.py"])
 
 
 def main():

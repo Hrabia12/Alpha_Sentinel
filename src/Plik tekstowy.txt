@@ -1,0 +1,560 @@
+  ╱  ~/alpha_sentinel ╱  main !11 ?4           󰌠 3.13.5 (alpha_env) ╱ 19:44:59 ─╮
+╰─❯ python start_bot.py all                                                             ─╯
+🚀 Starting complete Alpha Sentinel system...
+   Step 1: Testing system...
+🧪 Testing System Components...
+/home/michal/alpha_sentinel/alpha_env/lib/python3.13/site-packages/pandas_ta/__init__.py:7: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import get_distribution, DistributionNotFound
+2025-08-15 19:45:08.694761: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+/home/michal/alpha_sentinel/alpha_env/lib/python3.13/site-packages/google/protobuf/runtime_version.py:98: UserWarning: Protobuf gencode version 5.28.3 is exactly one major version older than the runtime version 6.31.1 at tensorflow/core/framework/attr_value.proto. Please update the gencode to avoid compatibility violations in the next runtime release.
+  warnings.warn(
+/home/michal/alpha_sentinel/alpha_env/lib/python3.13/site-packages/google/protobuf/runtime_version.py:98: UserWarning: Protobuf gencode version 5.28.3 is exactly one major version older than the runtime version 6.31.1 at tensorflow/core/framework/tensor.proto. Please update the gencode to avoid compatibility violations in the next runtime release.
+  warnings.warn(
+/home/michal/alpha_sentinel/alpha_env/lib/python3.13/site-packages/google/protobuf/runtime_version.py:98: UserWarning: Protobuf gencode version 5.28.3 is exactly one major version older than the runtime version 6.31.1 at tensorflow/core/framework/resource_handle.proto. Please update the gencode to avoid compatibility violations in the next runtime release.
+  warnings.warn(
+/home/michal/alpha_sentinel/alpha_env/lib/python3.13/site-packages/google/protobuf/runtime_version.py:98: UserWarning: Protobuf gencode version 5.28.3 is exactly one major version older than the runtime version 6.31.1 at tensorflow/core/framework/tensor_shape.proto. Please update the gencode to avoid compatibility violations in the next runtime release.
+  warnings.warn(
+/home/michal/alpha_sentinel/alpha_env/lib/python3.13/site-packages/google/protobuf/runtime_version.py:98: UserWarning: Protobuf gencode version 5.28.3 is exactly one major version older than the runtime version 6.31.1 at tensorflow/core/framework/types.proto. Please update the gencode to avoid compatibility violations in the next runtime release.
+  warnings.warn(
+/home/michal/alpha_sentinel/alpha_env/lib/python3.13/site-packages/google/protobuf/runtime_version.py:98: UserWarning: Protobuf gencode version 5.28.3 is exactly one major version older than the runtime version 6.31.1 at tensorflow/core/framework/full_type.proto. Please update the gencode to avoid compatibility violations in the next runtime release.
+  warnings.warn(
+/home/michal/alpha_sentinel/alpha_env/lib/python3.13/site-packages/google/protobuf/runtime_version.py:98: UserWarning: Protobuf gencode version 5.28.3 is exactly one major version older than the runtime version 6.31.1 at tensorflow/core/framework/function.proto. Please update the gencode to avoid compatibility violations in the next runtime release.
+  warnings.warn(
+/home/michal/alpha_sentinel/alpha_env/lib/python3.13/site-packages/google/protobuf/runtime_version.py:98: UserWarning: Protobuf gencode version 5.28.3 is exactly one major version older than the runtime version 6.31.1 at tensorflow/core/framework/node_def.proto. Please update the gencode to avoid compatibility violations in the next runtime release.
+  warnings.warn(
+/home/michal/alpha_sentinel/alpha_env/lib/python3.13/site-packages/google/protobuf/runtime_version.py:98: UserWarning: Protobuf gencode version 5.28.3 is exactly one major version older than the runtime version 6.31.1 at tensorflow/core/framework/op_def.proto. Please update the gencode to avoid compatibility violations in the next runtime release.
+  warnings.warn(
+/home/michal/alpha_sentinel/alpha_env/lib/python3.13/site-packages/google/protobuf/runtime_version.py:98: UserWarning: Protobuf gencode version 5.28.3 is exactly one major version older than the runtime version 6.31.1 at tensorflow/core/framework/graph.proto. Please update the gencode to avoid compatibility violations in the next runtime release.
+  warnings.warn(
+/home/michal/alpha_sentinel/alpha_env/lib/python3.13/site-packages/google/protobuf/runtime_version.py:98: UserWarning: Protobuf gencode version 5.28.3 is exactly one major version older than the runtime version 6.31.1 at tensorflow/core/framework/graph_debug_info.proto. Please update the gencode to avoid compatibility violations in the next runtime release.
+  warnings.warn(
+/home/michal/alpha_sentinel/alpha_env/lib/python3.13/site-packages/google/protobuf/runtime_version.py:98: UserWarning: Protobuf gencode version 5.28.3 is exactly one major version older than the runtime version 6.31.1 at tensorflow/core/framework/versions.proto. Please update the gencode to avoid compatibility violations in the next runtime release.
+  warnings.warn(
+/home/michal/alpha_sentinel/alpha_env/lib/python3.13/site-packages/google/protobuf/runtime_version.py:98: UserWarning: Protobuf gencode version 5.28.3 is exactly one major version older than the runtime version 6.31.1 at tensorflow/core/protobuf/config.proto. Please update the gencode to avoid compatibility violations in the next runtime release.
+  warnings.warn(
+/home/michal/alpha_sentinel/alpha_env/lib/python3.13/site-packages/google/protobuf/runtime_version.py:98: UserWarning: Protobuf gencode version 5.28.3 is exactly one major version older than the runtime version 6.31.1 at xla/tsl/protobuf/coordination_config.proto. Please update the gencode to avoid compatibility violations in the next runtime release.
+  warnings.warn(
+/home/michal/alpha_sentinel/alpha_env/lib/python3.13/site-packages/google/protobuf/runtime_version.py:98: UserWarning: Protobuf gencode version 5.28.3 is exactly one major version older than the runtime version 6.31.1 at tensorflow/core/framework/cost_graph.proto. Please update the gencode to avoid compatibility violations in the next runtime release.
+  warnings.warn(
+/home/michal/alpha_sentinel/alpha_env/lib/python3.13/site-packages/google/protobuf/runtime_version.py:98: UserWarning: Protobuf gencode version 5.28.3 is exactly one major version older than the runtime version 6.31.1 at tensorflow/core/framework/step_stats.proto. Please update the gencode to avoid compatibility violations in the next runtime release.
+  warnings.warn(
+/home/michal/alpha_sentinel/alpha_env/lib/python3.13/site-packages/google/protobuf/runtime_version.py:98: UserWarning: Protobuf gencode version 5.28.3 is exactly one major version older than the runtime version 6.31.1 at tensorflow/core/framework/allocation_description.proto. Please update the gencode to avoid compatibility violations in the next runtime release.
+  warnings.warn(
+/home/michal/alpha_sentinel/alpha_env/lib/python3.13/site-packages/google/protobuf/runtime_version.py:98: UserWarning: Protobuf gencode version 5.28.3 is exactly one major version older than the runtime version 6.31.1 at tensorflow/core/framework/tensor_description.proto. Please update the gencode to avoid compatibility violations in the next runtime release.
+  warnings.warn(
+/home/michal/alpha_sentinel/alpha_env/lib/python3.13/site-packages/google/protobuf/runtime_version.py:98: UserWarning: Protobuf gencode version 5.28.3 is exactly one major version older than the runtime version 6.31.1 at tensorflow/core/protobuf/cluster.proto. Please update the gencode to avoid compatibility violations in the next runtime release.
+  warnings.warn(
+/home/michal/alpha_sentinel/alpha_env/lib/python3.13/site-packages/google/protobuf/runtime_version.py:98: UserWarning: Protobuf gencode version 5.28.3 is exactly one major version older than the runtime version 6.31.1 at tensorflow/core/protobuf/debug.proto. Please update the gencode to avoid compatibility violations in the next runtime release.
+  warnings.warn(
+🧪 Testing Alpha Sentinel Components
+==================================================
+1. Testing Database Connection...
+   ✅ Database connection successful
+
+2. Testing Exchange Data Collection...
+   ✅ Real-time data collection successful
+   📊 BTC/USDT Price: $117,740.03
+
+3. Testing Technical Indicators...
+   ✅ Technical indicators calculated successfully
+   📈 RSI: None
+   📊 MACD: None
+
+4. Testing Sentiment Analysis...
+Device set to use cpu
+CryptoBERT loaded successfully
+   ✅ Fear & Greed Index retrieved successfully
+   😨 Fear & Greed: 60 (Greed)
+   ✅ Sentiment aggregation successful
+   🎭 Aggregate Sentiment: 0.080
+
+5. Testing Signal Generation...
+   ✅ Signal generation successful
+   🎯 Signal: BUY
+   🎲 Confidence: 0.561
+
+==================================================
+🎉 Component testing completed!
+   Step 2: Training models...
+🧠 Training ML Models...
+/home/michal/alpha_sentinel/alpha_env/lib/python3.13/site-packages/pandas_ta/__init__.py:7: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import get_distribution, DistributionNotFound
+INFO:__main__:Training model for BTC/USDT
+Epoch [1/50], Train Loss: 0.2054, Val Loss: 0.0067
+Epoch [11/50], Train Loss: 0.0258, Val Loss: 0.1208
+Epoch [21/50], Train Loss: 0.0264, Val Loss: 0.0781
+Epoch [31/50], Train Loss: 0.0278, Val Loss: 0.0791
+Epoch [41/50], Train Loss: 0.0254, Val Loss: 0.1122
+Training RMSE: 1345.98
+Testing RMSE: 2787.82
+Model saved to models/BTC_USDT_lstm.pth
+INFO:__main__:Model trained for BTC/USDT. RMSE: 2787.817840135898
+INFO:__main__:Training model for ETH/USDT
+Epoch [1/50], Train Loss: 0.0498, Val Loss: 0.0165
+Epoch [11/50], Train Loss: 0.0082, Val Loss: 0.0187
+Epoch [21/50], Train Loss: 0.0059, Val Loss: 0.0032
+Epoch [31/50], Train Loss: 0.0059, Val Loss: 0.0043
+Epoch [41/50], Train Loss: 0.0054, Val Loss: 0.0081
+Training RMSE: 131.29
+Testing RMSE: 137.59
+Model saved to models/ETH_USDT_lstm.pth
+INFO:__main__:Model trained for ETH/USDT. RMSE: 137.58731347059768
+INFO:__main__:Training model for BNB/USDT
+Epoch [1/50], Train Loss: 0.4079, Val Loss: 0.1318
+Epoch [11/50], Train Loss: 0.1210, Val Loss: 0.0020
+Epoch [21/50], Train Loss: 0.0353, Val Loss: 0.0525
+Epoch [31/50], Train Loss: 0.0354, Val Loss: 0.0173
+Epoch [41/50], Train Loss: 0.0302, Val Loss: 0.0578
+Training RMSE: 20.85
+Testing RMSE: 21.81
+Model saved to models/BNB_USDT_lstm.pth
+INFO:__main__:Model trained for BNB/USDT. RMSE: 21.81244074330851
+INFO:__main__:Training model for SOL/USDT
+Epoch [1/50], Train Loss: 0.2929, Val Loss: 0.0101
+Epoch [11/50], Train Loss: 0.0453, Val Loss: 0.1370
+Epoch [21/50], Train Loss: 0.0342, Val Loss: 0.1028
+Epoch [31/50], Train Loss: 0.0301, Val Loss: 0.1276
+Epoch [41/50], Train Loss: 0.0232, Val Loss: 0.1271
+Training RMSE: 5.77
+Testing RMSE: 15.97
+Model saved to models/SOL_USDT_lstm.pth
+INFO:__main__:Model trained for SOL/USDT. RMSE: 15.968665316111988
+INFO:__main__:Training model for DOGE/USDT
+Epoch [1/50], Train Loss: 0.2510, Val Loss: 0.0088
+Epoch [11/50], Train Loss: 0.0508, Val Loss: 0.1078
+Epoch [21/50], Train Loss: 0.0393, Val Loss: 0.1067
+Epoch [31/50], Train Loss: 0.0379, Val Loss: 0.0887
+Epoch [41/50], Train Loss: 0.0280, Val Loss: 0.1167
+Training RMSE: 0.01
+Testing RMSE: 0.02
+Model saved to models/DOGE_USDT_lstm.pth
+INFO:__main__:Model trained for DOGE/USDT. RMSE: 0.021269340647093505
+INFO:__main__:Model training completed for all symbols
+   Step 3: Starting bot in background...
+🤖 Starting Alpha Sentinel Bot...
+   Step 4: Starting dashboard...
+📊 Starting Alpha Sentinel Dashboard...
+/home/michal/alpha_sentinel/alpha_env/lib/python3.13/site-packages/pandas_ta/__init__.py:7: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import get_distribution, DistributionNotFound
+
+  You can now view your Streamlit app in your browser.
+
+  URL: http://0.0.0.0:8501
+
+/home/michal/alpha_sentinel/alpha_env/lib/python3.13/site-packages/pandas_ta/__init__.py:7: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  from pkg_resources import get_distribution, DistributionNotFound
+2025-08-15 19:45:40.268440: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+/home/michal/alpha_sentinel/alpha_env/lib/python3.13/site-packages/google/protobuf/runtime_version.py:98: UserWarning: Protobuf gencode version 5.28.3 is exactly one major version older than the runtime version 6.31.1 at tensorflow/core/framework/attr_value.proto. Please update the gencode to avoid compatibility violations in the next runtime release.
+  warnings.warn(
+/home/michal/alpha_sentinel/alpha_env/lib/python3.13/site-packages/google/protobuf/runtime_version.py:98: UserWarning: Protobuf gencode version 5.28.3 is exactly one major version older than the runtime version 6.31.1 at tensorflow/core/framework/tensor.proto. Please update the gencode to avoid compatibility violations in the next runtime release.
+  warnings.warn(
+/home/michal/alpha_sentinel/alpha_env/lib/python3.13/site-packages/google/protobuf/runtime_version.py:98: UserWarning: Protobuf gencode version 5.28.3 is exactly one major version older than the runtime version 6.31.1 at tensorflow/core/framework/resource_handle.proto. Please update the gencode to avoid compatibility violations in the next runtime release.
+  warnings.warn(
+/home/michal/alpha_sentinel/alpha_env/lib/python3.13/site-packages/google/protobuf/runtime_version.py:98: UserWarning: Protobuf gencode version 5.28.3 is exactly one major version older than the runtime version 6.31.1 at tensorflow/core/framework/tensor_shape.proto. Please update the gencode to avoid compatibility violations in the next runtime release.
+  warnings.warn(
+/home/michal/alpha_sentinel/alpha_env/lib/python3.13/site-packages/google/protobuf/runtime_version.py:98: UserWarning: Protobuf gencode version 5.28.3 is exactly one major version older than the runtime version 6.31.1 at tensorflow/core/framework/types.proto. Please update the gencode to avoid compatibility violations in the next runtime release.
+  warnings.warn(
+/home/michal/alpha_sentinel/alpha_env/lib/python3.13/site-packages/google/protobuf/runtime_version.py:98: UserWarning: Protobuf gencode version 5.28.3 is exactly one major version older than the runtime version 6.31.1 at tensorflow/core/framework/full_type.proto. Please update the gencode to avoid compatibility violations in the next runtime release.
+  warnings.warn(
+/home/michal/alpha_sentinel/alpha_env/lib/python3.13/site-packages/google/protobuf/runtime_version.py:98: UserWarning: Protobuf gencode version 5.28.3 is exactly one major version older than the runtime version 6.31.1 at tensorflow/core/framework/function.proto. Please update the gencode to avoid compatibility violations in the next runtime release.
+  warnings.warn(
+/home/michal/alpha_sentinel/alpha_env/lib/python3.13/site-packages/google/protobuf/runtime_version.py:98: UserWarning: Protobuf gencode version 5.28.3 is exactly one major version older than the runtime version 6.31.1 at tensorflow/core/framework/node_def.proto. Please update the gencode to avoid compatibility violations in the next runtime release.
+  warnings.warn(
+/home/michal/alpha_sentinel/alpha_env/lib/python3.13/site-packages/google/protobuf/runtime_version.py:98: UserWarning: Protobuf gencode version 5.28.3 is exactly one major version older than the runtime version 6.31.1 at tensorflow/core/framework/op_def.proto. Please update the gencode to avoid compatibility violations in the next runtime release.
+  warnings.warn(
+/home/michal/alpha_sentinel/alpha_env/lib/python3.13/site-packages/google/protobuf/runtime_version.py:98: UserWarning: Protobuf gencode version 5.28.3 is exactly one major version older than the runtime version 6.31.1 at tensorflow/core/framework/graph.proto. Please update the gencode to avoid compatibility violations in the next runtime release.
+  warnings.warn(
+/home/michal/alpha_sentinel/alpha_env/lib/python3.13/site-packages/google/protobuf/runtime_version.py:98: UserWarning: Protobuf gencode version 5.28.3 is exactly one major version older than the runtime version 6.31.1 at tensorflow/core/framework/graph_debug_info.proto. Please update the gencode to avoid compatibility violations in the next runtime release.
+  warnings.warn(
+/home/michal/alpha_sentinel/alpha_env/lib/python3.13/site-packages/google/protobuf/runtime_version.py:98: UserWarning: Protobuf gencode version 5.28.3 is exactly one major version older than the runtime version 6.31.1 at tensorflow/core/framework/versions.proto. Please update the gencode to avoid compatibility violations in the next runtime release.
+  warnings.warn(
+/home/michal/alpha_sentinel/alpha_env/lib/python3.13/site-packages/google/protobuf/runtime_version.py:98: UserWarning: Protobuf gencode version 5.28.3 is exactly one major version older than the runtime version 6.31.1 at tensorflow/core/protobuf/config.proto. Please update the gencode to avoid compatibility violations in the next runtime release.
+  warnings.warn(
+/home/michal/alpha_sentinel/alpha_env/lib/python3.13/site-packages/google/protobuf/runtime_version.py:98: UserWarning: Protobuf gencode version 5.28.3 is exactly one major version older than the runtime version 6.31.1 at xla/tsl/protobuf/coordination_config.proto. Please update the gencode to avoid compatibility violations in the next runtime release.
+  warnings.warn(
+/home/michal/alpha_sentinel/alpha_env/lib/python3.13/site-packages/google/protobuf/runtime_version.py:98: UserWarning: Protobuf gencode version 5.28.3 is exactly one major version older than the runtime version 6.31.1 at tensorflow/core/framework/cost_graph.proto. Please update the gencode to avoid compatibility violations in the next runtime release.
+  warnings.warn(
+/home/michal/alpha_sentinel/alpha_env/lib/python3.13/site-packages/google/protobuf/runtime_version.py:98: UserWarning: Protobuf gencode version 5.28.3 is exactly one major version older than the runtime version 6.31.1 at tensorflow/core/framework/step_stats.proto. Please update the gencode to avoid compatibility violations in the next runtime release.
+  warnings.warn(
+/home/michal/alpha_sentinel/alpha_env/lib/python3.13/site-packages/google/protobuf/runtime_version.py:98: UserWarning: Protobuf gencode version 5.28.3 is exactly one major version older than the runtime version 6.31.1 at tensorflow/core/framework/allocation_description.proto. Please update the gencode to avoid compatibility violations in the next runtime release.
+  warnings.warn(
+/home/michal/alpha_sentinel/alpha_env/lib/python3.13/site-packages/google/protobuf/runtime_version.py:98: UserWarning: Protobuf gencode version 5.28.3 is exactly one major version older than the runtime version 6.31.1 at tensorflow/core/framework/tensor_description.proto. Please update the gencode to avoid compatibility violations in the next runtime release.
+  warnings.warn(
+/home/michal/alpha_sentinel/alpha_env/lib/python3.13/site-packages/google/protobuf/runtime_version.py:98: UserWarning: Protobuf gencode version 5.28.3 is exactly one major version older than the runtime version 6.31.1 at tensorflow/core/protobuf/cluster.proto. Please update the gencode to avoid compatibility violations in the next runtime release.
+  warnings.warn(
+/home/michal/alpha_sentinel/alpha_env/lib/python3.13/site-packages/google/protobuf/runtime_version.py:98: UserWarning: Protobuf gencode version 5.28.3 is exactly one major version older than the runtime version 6.31.1 at tensorflow/core/protobuf/debug.proto. Please update the gencode to avoid compatibility violations in the next runtime release.
+  warnings.warn(
+2025-08-15 19:45:42.084556: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+/home/michal/alpha_sentinel/alpha_env/lib/python3.13/site-packages/google/protobuf/runtime_version.py:98: UserWarning: Protobuf gencode version 5.28.3 is exactly one major version older than the runtime version 6.31.1 at tensorflow/core/framework/attr_value.proto. Please update the gencode to avoid compatibility violations in the next runtime release.
+  warnings.warn(
+/home/michal/alpha_sentinel/alpha_env/lib/python3.13/site-packages/google/protobuf/runtime_version.py:98: UserWarning: Protobuf gencode version 5.28.3 is exactly one major version older than the runtime version 6.31.1 at tensorflow/core/framework/tensor.proto. Please update the gencode to avoid compatibility violations in the next runtime release.
+  warnings.warn(
+/home/michal/alpha_sentinel/alpha_env/lib/python3.13/site-packages/google/protobuf/runtime_version.py:98: UserWarning: Protobuf gencode version 5.28.3 is exactly one major version older than the runtime version 6.31.1 at tensorflow/core/framework/resource_handle.proto. Please update the gencode to avoid compatibility violations in the next runtime release.
+  warnings.warn(
+/home/michal/alpha_sentinel/alpha_env/lib/python3.13/site-packages/google/protobuf/runtime_version.py:98: UserWarning: Protobuf gencode version 5.28.3 is exactly one major version older than the runtime version 6.31.1 at tensorflow/core/framework/tensor_shape.proto. Please update the gencode to avoid compatibility violations in the next runtime release.
+  warnings.warn(
+/home/michal/alpha_sentinel/alpha_env/lib/python3.13/site-packages/google/protobuf/runtime_version.py:98: UserWarning: Protobuf gencode version 5.28.3 is exactly one major version older than the runtime version 6.31.1 at tensorflow/core/framework/types.proto. Please update the gencode to avoid compatibility violations in the next runtime release.
+  warnings.warn(
+/home/michal/alpha_sentinel/alpha_env/lib/python3.13/site-packages/google/protobuf/runtime_version.py:98: UserWarning: Protobuf gencode version 5.28.3 is exactly one major version older than the runtime version 6.31.1 at tensorflow/core/framework/full_type.proto. Please update the gencode to avoid compatibility violations in the next runtime release.
+  warnings.warn(
+/home/michal/alpha_sentinel/alpha_env/lib/python3.13/site-packages/google/protobuf/runtime_version.py:98: UserWarning: Protobuf gencode version 5.28.3 is exactly one major version older than the runtime version 6.31.1 at tensorflow/core/framework/function.proto. Please update the gencode to avoid compatibility violations in the next runtime release.
+  warnings.warn(
+/home/michal/alpha_sentinel/alpha_env/lib/python3.13/site-packages/google/protobuf/runtime_version.py:98: UserWarning: Protobuf gencode version 5.28.3 is exactly one major version older than the runtime version 6.31.1 at tensorflow/core/framework/node_def.proto. Please update the gencode to avoid compatibility violations in the next runtime release.
+  warnings.warn(
+/home/michal/alpha_sentinel/alpha_env/lib/python3.13/site-packages/google/protobuf/runtime_version.py:98: UserWarning: Protobuf gencode version 5.28.3 is exactly one major version older than the runtime version 6.31.1 at tensorflow/core/framework/op_def.proto. Please update the gencode to avoid compatibility violations in the next runtime release.
+  warnings.warn(
+/home/michal/alpha_sentinel/alpha_env/lib/python3.13/site-packages/google/protobuf/runtime_version.py:98: UserWarning: Protobuf gencode version 5.28.3 is exactly one major version older than the runtime version 6.31.1 at tensorflow/core/framework/graph.proto. Please update the gencode to avoid compatibility violations in the next runtime release.
+  warnings.warn(
+/home/michal/alpha_sentinel/alpha_env/lib/python3.13/site-packages/google/protobuf/runtime_version.py:98: UserWarning: Protobuf gencode version 5.28.3 is exactly one major version older than the runtime version 6.31.1 at tensorflow/core/framework/graph_debug_info.proto. Please update the gencode to avoid compatibility violations in the next runtime release.
+  warnings.warn(
+/home/michal/alpha_sentinel/alpha_env/lib/python3.13/site-packages/google/protobuf/runtime_version.py:98: UserWarning: Protobuf gencode version 5.28.3 is exactly one major version older than the runtime version 6.31.1 at tensorflow/core/framework/versions.proto. Please update the gencode to avoid compatibility violations in the next runtime release.
+  warnings.warn(
+/home/michal/alpha_sentinel/alpha_env/lib/python3.13/site-packages/google/protobuf/runtime_version.py:98: UserWarning: Protobuf gencode version 5.28.3 is exactly one major version older than the runtime version 6.31.1 at tensorflow/core/protobuf/config.proto. Please update the gencode to avoid compatibility violations in the next runtime release.
+  warnings.warn(
+/home/michal/alpha_sentinel/alpha_env/lib/python3.13/site-packages/google/protobuf/runtime_version.py:98: UserWarning: Protobuf gencode version 5.28.3 is exactly one major version older than the runtime version 6.31.1 at xla/tsl/protobuf/coordination_config.proto. Please update the gencode to avoid compatibility violations in the next runtime release.
+  warnings.warn(
+/home/michal/alpha_sentinel/alpha_env/lib/python3.13/site-packages/google/protobuf/runtime_version.py:98: UserWarning: Protobuf gencode version 5.28.3 is exactly one major version older than the runtime version 6.31.1 at tensorflow/core/framework/cost_graph.proto. Please update the gencode to avoid compatibility violations in the next runtime release.
+  warnings.warn(
+/home/michal/alpha_sentinel/alpha_env/lib/python3.13/site-packages/google/protobuf/runtime_version.py:98: UserWarning: Protobuf gencode version 5.28.3 is exactly one major version older than the runtime version 6.31.1 at tensorflow/core/framework/step_stats.proto. Please update the gencode to avoid compatibility violations in the next runtime release.
+  warnings.warn(
+/home/michal/alpha_sentinel/alpha_env/lib/python3.13/site-packages/google/protobuf/runtime_version.py:98: UserWarning: Protobuf gencode version 5.28.3 is exactly one major version older than the runtime version 6.31.1 at tensorflow/core/framework/allocation_description.proto. Please update the gencode to avoid compatibility violations in the next runtime release.
+  warnings.warn(
+/home/michal/alpha_sentinel/alpha_env/lib/python3.13/site-packages/google/protobuf/runtime_version.py:98: UserWarning: Protobuf gencode version 5.28.3 is exactly one major version older than the runtime version 6.31.1 at tensorflow/core/framework/tensor_description.proto. Please update the gencode to avoid compatibility violations in the next runtime release.
+  warnings.warn(
+/home/michal/alpha_sentinel/alpha_env/lib/python3.13/site-packages/google/protobuf/runtime_version.py:98: UserWarning: Protobuf gencode version 5.28.3 is exactly one major version older than the runtime version 6.31.1 at tensorflow/core/protobuf/cluster.proto. Please update the gencode to avoid compatibility violations in the next runtime release.
+  warnings.warn(
+/home/michal/alpha_sentinel/alpha_env/lib/python3.13/site-packages/google/protobuf/runtime_version.py:98: UserWarning: Protobuf gencode version 5.28.3 is exactly one major version older than the runtime version 6.31.1 at tensorflow/core/protobuf/debug.proto. Please update the gencode to avoid compatibility violations in the next runtime release.
+  warnings.warn(
+Device set to use cpu
+CryptoBERT loaded successfully
+2025-08-15 19:45:44,575 - __main__ - ERROR - Failed to load model for BTC/USDT: Weights only load failed. This file can still be loaded, to do so you have two options, do those steps only if you trust the source of the checkpoint. 
+	(1) In PyTorch 2.6, we changed the default value of the `weights_only` argument in `torch.load` from `False` to `True`. Re-running `torch.load` with `weights_only` set to `False` will likely succeed, but it can result in arbitrary code execution. Do it only if you got the file from a trusted source.
+	(2) Alternatively, to load with `weights_only=True` please check the recommended steps in the following error message.
+	WeightsUnpickler error: Unsupported global: GLOBAL sklearn.preprocessing._data.MinMaxScaler was not an allowed global by default. Please use `torch.serialization.add_safe_globals([sklearn.preprocessing._data.MinMaxScaler])` or the `torch.serialization.safe_globals([sklearn.preprocessing._data.MinMaxScaler])` context manager to allowlist this global if you trust this class/function.
+
+Check the documentation of torch.load to learn more about types accepted by default with weights_only https://pytorch.org/docs/stable/generated/torch.load.html.
+2025-08-15 19:45:44,579 - __main__ - ERROR - Failed to load model for ETH/USDT: Weights only load failed. This file can still be loaded, to do so you have two options, do those steps only if you trust the source of the checkpoint. 
+	(1) In PyTorch 2.6, we changed the default value of the `weights_only` argument in `torch.load` from `False` to `True`. Re-running `torch.load` with `weights_only` set to `False` will likely succeed, but it can result in arbitrary code execution. Do it only if you got the file from a trusted source.
+	(2) Alternatively, to load with `weights_only=True` please check the recommended steps in the following error message.
+	WeightsUnpickler error: Unsupported global: GLOBAL sklearn.preprocessing._data.MinMaxScaler was not an allowed global by default. Please use `torch.serialization.add_safe_globals([sklearn.preprocessing._data.MinMaxScaler])` or the `torch.serialization.safe_globals([sklearn.preprocessing._data.MinMaxScaler])` context manager to allowlist this global if you trust this class/function.
+
+Check the documentation of torch.load to learn more about types accepted by default with weights_only https://pytorch.org/docs/stable/generated/torch.load.html.
+2025-08-15 19:45:44,582 - __main__ - ERROR - Failed to load model for BNB/USDT: Weights only load failed. This file can still be loaded, to do so you have two options, do those steps only if you trust the source of the checkpoint. 
+	(1) In PyTorch 2.6, we changed the default value of the `weights_only` argument in `torch.load` from `False` to `True`. Re-running `torch.load` with `weights_only` set to `False` will likely succeed, but it can result in arbitrary code execution. Do it only if you got the file from a trusted source.
+	(2) Alternatively, to load with `weights_only=True` please check the recommended steps in the following error message.
+	WeightsUnpickler error: Unsupported global: GLOBAL sklearn.preprocessing._data.MinMaxScaler was not an allowed global by default. Please use `torch.serialization.add_safe_globals([sklearn.preprocessing._data.MinMaxScaler])` or the `torch.serialization.safe_globals([sklearn.preprocessing._data.MinMaxScaler])` context manager to allowlist this global if you trust this class/function.
+
+Check the documentation of torch.load to learn more about types accepted by default with weights_only https://pytorch.org/docs/stable/generated/torch.load.html.
+2025-08-15 19:45:44,586 - __main__ - ERROR - Failed to load model for SOL/USDT: Weights only load failed. This file can still be loaded, to do so you have two options, do those steps only if you trust the source of the checkpoint. 
+	(1) In PyTorch 2.6, we changed the default value of the `weights_only` argument in `torch.load` from `False` to `True`. Re-running `torch.load` with `weights_only` set to `False` will likely succeed, but it can result in arbitrary code execution. Do it only if you got the file from a trusted source.
+	(2) Alternatively, to load with `weights_only=True` please check the recommended steps in the following error message.
+	WeightsUnpickler error: Unsupported global: GLOBAL sklearn.preprocessing._data.MinMaxScaler was not an allowed global by default. Please use `torch.serialization.add_safe_globals([sklearn.preprocessing._data.MinMaxScaler])` or the `torch.serialization.safe_globals([sklearn.preprocessing._data.MinMaxScaler])` context manager to allowlist this global if you trust this class/function.
+
+Check the documentation of torch.load to learn more about types accepted by default with weights_only https://pytorch.org/docs/stable/generated/torch.load.html.
+2025-08-15 19:45:44,590 - __main__ - ERROR - Failed to load model for DOGE/USDT: Weights only load failed. This file can still be loaded, to do so you have two options, do those steps only if you trust the source of the checkpoint. 
+	(1) In PyTorch 2.6, we changed the default value of the `weights_only` argument in `torch.load` from `False` to `True`. Re-running `torch.load` with `weights_only` set to `False` will likely succeed, but it can result in arbitrary code execution. Do it only if you got the file from a trusted source.
+	(2) Alternatively, to load with `weights_only=True` please check the recommended steps in the following error message.
+	WeightsUnpickler error: Unsupported global: GLOBAL sklearn.preprocessing._data.MinMaxScaler was not an allowed global by default. Please use `torch.serialization.add_safe_globals([sklearn.preprocessing._data.MinMaxScaler])` or the `torch.serialization.safe_globals([sklearn.preprocessing._data.MinMaxScaler])` context manager to allowlist this global if you trust this class/function.
+
+Check the documentation of torch.load to learn more about types accepted by default with weights_only https://pytorch.org/docs/stable/generated/torch.load.html.
+2025-08-15 19:45:44,590 - __main__ - INFO - Alpha Sentinel initialized successfully
+2025-08-15 19:45:44,591 - __main__ - INFO - 🤖 Alpha Sentinel Bot Starting...
+2025-08-15 19:45:44,591 - __main__ - INFO - Jobs scheduled successfully
+2025-08-15 19:45:44,591 - __main__ - INFO - Starting analysis cycle
+/home/michal/alpha_sentinel/src/dashboard/dashboard.py:454: FutureWarning:
+
+Styler.applymap has been deprecated. Use Styler.map instead.
+
+Error inserting market data: Object of type datetime is not JSON serializable
+2025-08-15 19:45:47,660 - __main__ - ERROR - Failed to store market data for BTC/USDT
+Error inserting market data: Object of type datetime is not JSON serializable
+2025-08-15 19:45:48,069 - __main__ - ERROR - Failed to store market data for ETH/USDT
+Error inserting market data: Object of type datetime is not JSON serializable
+2025-08-15 19:45:48,376 - __main__ - ERROR - Failed to store market data for BNB/USDT
+Error inserting market data: Object of type datetime is not JSON serializable
+2025-08-15 19:45:48,786 - __main__ - ERROR - Failed to store market data for SOL/USDT
+Error inserting market data: Object of type datetime is not JSON serializable
+2025-08-15 19:45:49,092 - __main__ - ERROR - Failed to store market data for DOGE/USDT
+2025-08-15 19:45:49,093 - __main__ - INFO - Analyzing BTC/USDT
+2025-08-15 19:45:49,400 - httpx - INFO - HTTP Request: GET https://amhpflwemffmokxuurpk.supabase.co/rest/v1/market_data?select=%2A&symbol=eq.BTC%2FUSDT&order=timestamp.desc&limit=100 "HTTP/2 200 OK"
+2025-08-15 19:45:49,635 - httpx - INFO - HTTP Request: POST https://amhpflwemffmokxuurpk.supabase.co/rest/v1/technical_indicators "HTTP/2 201 Created"
+2025-08-15 19:45:56,568 - httpx - INFO - HTTP Request: POST https://amhpflwemffmokxuurpk.supabase.co/rest/v1/sentiment_data "HTTP/2 201 Created"
+2025-08-15 19:45:56,712 - httpx - INFO - HTTP Request: POST https://amhpflwemffmokxuurpk.supabase.co/rest/v1/trading_signals "HTTP/2 201 Created"
+2025-08-15 19:45:56,713 - __main__ - INFO - Generated SELL signal for BTC/USDT with confidence 0.550
+2025-08-15 19:45:56,713 - __main__ - INFO - Analyzing ETH/USDT
+2025-08-15 19:45:56,872 - httpx - INFO - HTTP Request: GET https://amhpflwemffmokxuurpk.supabase.co/rest/v1/market_data?select=%2A&symbol=eq.ETH%2FUSDT&order=timestamp.desc&limit=100 "HTTP/2 200 OK"
+2025-08-15 19:45:57,007 - httpx - INFO - HTTP Request: POST https://amhpflwemffmokxuurpk.supabase.co/rest/v1/technical_indicators "HTTP/2 201 Created"
+2025-08-15 19:45:58,186 - httpx - INFO - HTTP Request: POST https://amhpflwemffmokxuurpk.supabase.co/rest/v1/sentiment_data "HTTP/2 201 Created"
+2025-08-15 19:45:58,328 - httpx - INFO - HTTP Request: POST https://amhpflwemffmokxuurpk.supabase.co/rest/v1/trading_signals "HTTP/2 201 Created"
+2025-08-15 19:45:58,329 - __main__ - INFO - Generated HOLD signal for ETH/USDT with confidence 0.550
+2025-08-15 19:45:58,329 - __main__ - INFO - Analyzing BNB/USDT
+2025-08-15 19:45:58,417 - httpx - INFO - HTTP Request: GET https://amhpflwemffmokxuurpk.supabase.co/rest/v1/market_data?select=%2A&symbol=eq.BNB%2FUSDT&order=timestamp.desc&limit=100 "HTTP/2 200 OK"
+2025-08-15 19:45:58,554 - httpx - INFO - HTTP Request: POST https://amhpflwemffmokxuurpk.supabase.co/rest/v1/technical_indicators "HTTP/2 201 Created"
+2025-08-15 19:45:59,407 - httpx - INFO - HTTP Request: POST https://amhpflwemffmokxuurpk.supabase.co/rest/v1/sentiment_data "HTTP/2 201 Created"
+2025-08-15 19:45:59,504 - httpx - INFO - HTTP Request: POST https://amhpflwemffmokxuurpk.supabase.co/rest/v1/trading_signals "HTTP/2 201 Created"
+2025-08-15 19:45:59,504 - __main__ - INFO - Generated HOLD signal for BNB/USDT with confidence 0.383
+2025-08-15 19:45:59,505 - __main__ - INFO - Analyzing SOL/USDT
+2025-08-15 19:45:59,596 - httpx - INFO - HTTP Request: GET https://amhpflwemffmokxuurpk.supabase.co/rest/v1/market_data?select=%2A&symbol=eq.SOL%2FUSDT&order=timestamp.desc&limit=100 "HTTP/2 200 OK"
+2025-08-15 19:45:59,698 - httpx - INFO - HTTP Request: POST https://amhpflwemffmokxuurpk.supabase.co/rest/v1/technical_indicators "HTTP/2 201 Created"
+2025-08-15 19:46:00,586 - httpx - INFO - HTTP Request: POST https://amhpflwemffmokxuurpk.supabase.co/rest/v1/sentiment_data "HTTP/2 201 Created"
+2025-08-15 19:46:00,706 - httpx - INFO - HTTP Request: POST https://amhpflwemffmokxuurpk.supabase.co/rest/v1/trading_signals "HTTP/2 201 Created"
+2025-08-15 19:46:00,707 - __main__ - INFO - Generated HOLD signal for SOL/USDT with confidence 0.550
+2025-08-15 19:46:00,707 - __main__ - INFO - Analyzing DOGE/USDT
+2025-08-15 19:46:00,800 - httpx - INFO - HTTP Request: GET https://amhpflwemffmokxuurpk.supabase.co/rest/v1/market_data?select=%2A&symbol=eq.DOGE%2FUSDT&order=timestamp.desc&limit=100 "HTTP/2 200 OK"
+2025-08-15 19:46:00,917 - httpx - INFO - HTTP Request: POST https://amhpflwemffmokxuurpk.supabase.co/rest/v1/technical_indicators "HTTP/2 201 Created"
+/home/michal/alpha_sentinel/src/dashboard/dashboard.py:454: FutureWarning:
+
+Styler.applymap has been deprecated. Use Styler.map instead.
+
+2025-08-15 19:46:01,852 - httpx - INFO - HTTP Request: POST https://amhpflwemffmokxuurpk.supabase.co/rest/v1/sentiment_data "HTTP/2 201 Created"
+2025-08-15 19:46:01,975 - httpx - INFO - HTTP Request: POST https://amhpflwemffmokxuurpk.supabase.co/rest/v1/trading_signals "HTTP/2 201 Created"
+2025-08-15 19:46:01,976 - __main__ - INFO - Generated BUY signal for DOGE/USDT with confidence 0.550
+2025-08-15 19:46:01,976 - __main__ - INFO - Analysis completed for BTC/USDT
+2025-08-15 19:46:01,977 - __main__ - INFO - Analysis completed for ETH/USDT
+2025-08-15 19:46:01,977 - __main__ - INFO - Analysis completed for BNB/USDT
+2025-08-15 19:46:01,977 - __main__ - INFO - Analysis completed for SOL/USDT
+2025-08-15 19:46:01,977 - __main__ - INFO - Analysis completed for DOGE/USDT
+2025-08-15 19:46:01,977 - __main__ - INFO - Analysis cycle completed
+2025-08-15 19:46:01,978 - __main__ - INFO - Alpha Sentinel is now running. Press Ctrl+C to stop.
+/home/michal/alpha_sentinel/src/dashboard/dashboard.py:454: FutureWarning:
+
+Styler.applymap has been deprecated. Use Styler.map instead.
+
+/home/michal/alpha_sentinel/src/dashboard/dashboard.py:454: FutureWarning:
+
+Styler.applymap has been deprecated. Use Styler.map instead.
+
+/home/michal/alpha_sentinel/src/dashboard/dashboard.py:454: FutureWarning:
+
+Styler.applymap has been deprecated. Use Styler.map instead.
+
+/home/michal/alpha_sentinel/src/dashboard/dashboard.py:454: FutureWarning:
+
+Styler.applymap has been deprecated. Use Styler.map instead.
+
+/home/michal/alpha_sentinel/src/dashboard/dashboard.py:454: FutureWarning:
+
+Styler.applymap has been deprecated. Use Styler.map instead.
+
+/home/michal/alpha_sentinel/src/dashboard/dashboard.py:454: FutureWarning:
+
+Styler.applymap has been deprecated. Use Styler.map instead.
+
+2025-08-15 19:51:01,979 - __main__ - INFO - Starting analysis cycle
+Error inserting market data: Object of type datetime is not JSON serializable
+2025-08-15 19:51:02,574 - __main__ - ERROR - Failed to store market data for BTC/USDT
+Error inserting market data: Object of type datetime is not JSON serializable
+2025-08-15 19:51:02,909 - __main__ - ERROR - Failed to store market data for ETH/USDT
+Error inserting market data: Object of type datetime is not JSON serializable
+2025-08-15 19:51:03,188 - __main__ - ERROR - Failed to store market data for BNB/USDT
+Error inserting market data: Object of type datetime is not JSON serializable
+2025-08-15 19:51:03,461 - __main__ - ERROR - Failed to store market data for SOL/USDT
+Error inserting market data: Object of type datetime is not JSON serializable
+2025-08-15 19:51:03,736 - __main__ - ERROR - Failed to store market data for DOGE/USDT
+2025-08-15 19:51:03,736 - __main__ - INFO - Analyzing BTC/USDT
+2025-08-15 19:51:03,982 - httpx - INFO - HTTP Request: GET https://amhpflwemffmokxuurpk.supabase.co/rest/v1/market_data?select=%2A&symbol=eq.BTC%2FUSDT&order=timestamp.desc&limit=100 "HTTP/2 200 OK"
+2025-08-15 19:51:04,086 - httpx - INFO - HTTP Request: POST https://amhpflwemffmokxuurpk.supabase.co/rest/v1/technical_indicators "HTTP/2 201 Created"
+2025-08-15 19:51:05,024 - httpx - INFO - HTTP Request: POST https://amhpflwemffmokxuurpk.supabase.co/rest/v1/sentiment_data "HTTP/2 201 Created"
+2025-08-15 19:51:05,103 - httpx - INFO - HTTP Request: POST https://amhpflwemffmokxuurpk.supabase.co/rest/v1/trading_signals "HTTP/2 201 Created"
+2025-08-15 19:51:05,104 - __main__ - INFO - Generated SELL signal for BTC/USDT with confidence 0.550
+2025-08-15 19:51:05,104 - __main__ - INFO - Analyzing ETH/USDT
+2025-08-15 19:51:05,191 - httpx - INFO - HTTP Request: GET https://amhpflwemffmokxuurpk.supabase.co/rest/v1/market_data?select=%2A&symbol=eq.ETH%2FUSDT&order=timestamp.desc&limit=100 "HTTP/2 200 OK"
+2025-08-15 19:51:05,279 - httpx - INFO - HTTP Request: POST https://amhpflwemffmokxuurpk.supabase.co/rest/v1/technical_indicators "HTTP/2 201 Created"
+2025-08-15 19:51:06,129 - httpx - INFO - HTTP Request: POST https://amhpflwemffmokxuurpk.supabase.co/rest/v1/sentiment_data "HTTP/2 201 Created"
+2025-08-15 19:51:06,212 - httpx - INFO - HTTP Request: POST https://amhpflwemffmokxuurpk.supabase.co/rest/v1/trading_signals "HTTP/2 201 Created"
+2025-08-15 19:51:06,212 - __main__ - INFO - Generated HOLD signal for ETH/USDT with confidence 0.550
+2025-08-15 19:51:06,213 - __main__ - INFO - Analyzing BNB/USDT
+2025-08-15 19:51:06,303 - httpx - INFO - HTTP Request: GET https://amhpflwemffmokxuurpk.supabase.co/rest/v1/market_data?select=%2A&symbol=eq.BNB%2FUSDT&order=timestamp.desc&limit=100 "HTTP/2 200 OK"
+2025-08-15 19:51:06,407 - httpx - INFO - HTTP Request: POST https://amhpflwemffmokxuurpk.supabase.co/rest/v1/technical_indicators "HTTP/2 201 Created"
+2025-08-15 19:51:07,240 - httpx - INFO - HTTP Request: POST https://amhpflwemffmokxuurpk.supabase.co/rest/v1/sentiment_data "HTTP/2 201 Created"
+2025-08-15 19:51:07,323 - httpx - INFO - HTTP Request: POST https://amhpflwemffmokxuurpk.supabase.co/rest/v1/trading_signals "HTTP/2 201 Created"
+2025-08-15 19:51:07,324 - __main__ - INFO - Generated HOLD signal for BNB/USDT with confidence 0.383
+2025-08-15 19:51:07,324 - __main__ - INFO - Analyzing SOL/USDT
+2025-08-15 19:51:07,399 - httpx - INFO - HTTP Request: GET https://amhpflwemffmokxuurpk.supabase.co/rest/v1/market_data?select=%2A&symbol=eq.SOL%2FUSDT&order=timestamp.desc&limit=100 "HTTP/2 200 OK"
+2025-08-15 19:51:07,489 - httpx - INFO - HTTP Request: POST https://amhpflwemffmokxuurpk.supabase.co/rest/v1/technical_indicators "HTTP/2 201 Created"
+2025-08-15 19:51:08,346 - httpx - INFO - HTTP Request: POST https://amhpflwemffmokxuurpk.supabase.co/rest/v1/sentiment_data "HTTP/2 201 Created"
+2025-08-15 19:51:08,432 - httpx - INFO - HTTP Request: POST https://amhpflwemffmokxuurpk.supabase.co/rest/v1/trading_signals "HTTP/2 201 Created"
+2025-08-15 19:51:08,433 - __main__ - INFO - Generated HOLD signal for SOL/USDT with confidence 0.550
+2025-08-15 19:51:08,434 - __main__ - INFO - Analyzing DOGE/USDT
+2025-08-15 19:51:08,513 - httpx - INFO - HTTP Request: GET https://amhpflwemffmokxuurpk.supabase.co/rest/v1/market_data?select=%2A&symbol=eq.DOGE%2FUSDT&order=timestamp.desc&limit=100 "HTTP/2 200 OK"
+2025-08-15 19:51:08,604 - httpx - INFO - HTTP Request: POST https://amhpflwemffmokxuurpk.supabase.co/rest/v1/technical_indicators "HTTP/2 201 Created"
+/home/michal/alpha_sentinel/src/dashboard/dashboard.py:454: FutureWarning:
+
+Styler.applymap has been deprecated. Use Styler.map instead.
+
+2025-08-15 19:51:09,417 - httpx - INFO - HTTP Request: POST https://amhpflwemffmokxuurpk.supabase.co/rest/v1/sentiment_data "HTTP/2 201 Created"
+2025-08-15 19:51:09,500 - httpx - INFO - HTTP Request: POST https://amhpflwemffmokxuurpk.supabase.co/rest/v1/trading_signals "HTTP/2 201 Created"
+2025-08-15 19:51:09,501 - __main__ - INFO - Generated BUY signal for DOGE/USDT with confidence 0.550
+2025-08-15 19:51:09,502 - __main__ - INFO - Analysis completed for BTC/USDT
+2025-08-15 19:51:09,502 - __main__ - INFO - Analysis completed for ETH/USDT
+2025-08-15 19:51:09,502 - __main__ - INFO - Analysis completed for BNB/USDT
+2025-08-15 19:51:09,502 - __main__ - INFO - Analysis completed for SOL/USDT
+2025-08-15 19:51:09,502 - __main__ - INFO - Analysis completed for DOGE/USDT
+2025-08-15 19:51:09,502 - __main__ - INFO - Analysis cycle completed
+/home/michal/alpha_sentinel/src/dashboard/dashboard.py:454: FutureWarning:
+
+Styler.applymap has been deprecated. Use Styler.map instead.
+
+2025-08-15 19:56:09,504 - __main__ - INFO - Starting analysis cycle
+Error inserting market data: Object of type datetime is not JSON serializable
+2025-08-15 19:56:10,681 - __main__ - ERROR - Failed to store market data for BTC/USDT
+Error inserting market data: Object of type datetime is not JSON serializable
+2025-08-15 19:56:10,965 - __main__ - ERROR - Failed to store market data for ETH/USDT
+Error inserting market data: Object of type datetime is not JSON serializable
+2025-08-15 19:56:11,243 - __main__ - ERROR - Failed to store market data for BNB/USDT
+Error inserting market data: Object of type datetime is not JSON serializable
+2025-08-15 19:56:11,535 - __main__ - ERROR - Failed to store market data for SOL/USDT
+Error inserting market data: Object of type datetime is not JSON serializable
+2025-08-15 19:56:11,881 - __main__ - ERROR - Failed to store market data for DOGE/USDT
+2025-08-15 19:56:11,882 - __main__ - INFO - Analyzing BTC/USDT
+2025-08-15 19:56:12,609 - httpx - INFO - HTTP Request: GET https://amhpflwemffmokxuurpk.supabase.co/rest/v1/market_data?select=%2A&symbol=eq.BTC%2FUSDT&order=timestamp.desc&limit=100 "HTTP/2 200 OK"
+2025-08-15 19:56:12,917 - httpx - INFO - HTTP Request: POST https://amhpflwemffmokxuurpk.supabase.co/rest/v1/technical_indicators "HTTP/2 201 Created"
+2025-08-15 19:56:14,496 - httpx - INFO - HTTP Request: POST https://amhpflwemffmokxuurpk.supabase.co/rest/v1/sentiment_data "HTTP/2 201 Created"
+2025-08-15 19:56:14,641 - httpx - INFO - HTTP Request: POST https://amhpflwemffmokxuurpk.supabase.co/rest/v1/trading_signals "HTTP/2 201 Created"
+2025-08-15 19:56:14,642 - __main__ - INFO - Generated SELL signal for BTC/USDT with confidence 0.550
+2025-08-15 19:56:14,642 - __main__ - INFO - Analyzing ETH/USDT
+2025-08-15 19:56:14,759 - httpx - INFO - HTTP Request: GET https://amhpflwemffmokxuurpk.supabase.co/rest/v1/market_data?select=%2A&symbol=eq.ETH%2FUSDT&order=timestamp.desc&limit=100 "HTTP/2 200 OK"
+2025-08-15 19:56:14,872 - httpx - INFO - HTTP Request: POST https://amhpflwemffmokxuurpk.supabase.co/rest/v1/technical_indicators "HTTP/2 201 Created"
+2025-08-15 19:56:16,075 - httpx - INFO - HTTP Request: POST https://amhpflwemffmokxuurpk.supabase.co/rest/v1/sentiment_data "HTTP/2 201 Created"
+2025-08-15 19:56:16,230 - httpx - INFO - HTTP Request: POST https://amhpflwemffmokxuurpk.supabase.co/rest/v1/trading_signals "HTTP/2 201 Created"
+2025-08-15 19:56:16,231 - __main__ - INFO - Generated HOLD signal for ETH/USDT with confidence 0.550
+2025-08-15 19:56:16,231 - __main__ - INFO - Analyzing BNB/USDT
+2025-08-15 19:56:16,326 - httpx - INFO - HTTP Request: GET https://amhpflwemffmokxuurpk.supabase.co/rest/v1/market_data?select=%2A&symbol=eq.BNB%2FUSDT&order=timestamp.desc&limit=100 "HTTP/2 200 OK"
+2025-08-15 19:56:16,435 - httpx - INFO - HTTP Request: POST https://amhpflwemffmokxuurpk.supabase.co/rest/v1/technical_indicators "HTTP/2 201 Created"
+2025-08-15 19:56:17,203 - httpx - INFO - HTTP Request: POST https://amhpflwemffmokxuurpk.supabase.co/rest/v1/sentiment_data "HTTP/2 201 Created"
+2025-08-15 19:56:17,281 - httpx - INFO - HTTP Request: POST https://amhpflwemffmokxuurpk.supabase.co/rest/v1/trading_signals "HTTP/2 201 Created"
+2025-08-15 19:56:17,282 - __main__ - INFO - Generated HOLD signal for BNB/USDT with confidence 0.383
+2025-08-15 19:56:17,282 - __main__ - INFO - Analyzing SOL/USDT
+2025-08-15 19:56:17,414 - httpx - INFO - HTTP Request: GET https://amhpflwemffmokxuurpk.supabase.co/rest/v1/market_data?select=%2A&symbol=eq.SOL%2FUSDT&order=timestamp.desc&limit=100 "HTTP/2 200 OK"
+2025-08-15 19:56:17,640 - httpx - INFO - HTTP Request: POST https://amhpflwemffmokxuurpk.supabase.co/rest/v1/technical_indicators "HTTP/2 201 Created"
+2025-08-15 19:56:19,275 - httpx - INFO - HTTP Request: POST https://amhpflwemffmokxuurpk.supabase.co/rest/v1/sentiment_data "HTTP/2 201 Created"
+2025-08-15 19:56:19,414 - httpx - INFO - HTTP Request: POST https://amhpflwemffmokxuurpk.supabase.co/rest/v1/trading_signals "HTTP/2 201 Created"
+2025-08-15 19:56:19,415 - __main__ - INFO - Generated HOLD signal for SOL/USDT with confidence 0.550
+2025-08-15 19:56:19,415 - __main__ - INFO - Analyzing DOGE/USDT
+2025-08-15 19:56:19,536 - httpx - INFO - HTTP Request: GET https://amhpflwemffmokxuurpk.supabase.co/rest/v1/market_data?select=%2A&symbol=eq.DOGE%2FUSDT&order=timestamp.desc&limit=100 "HTTP/2 200 OK"
+2025-08-15 19:56:19,638 - httpx - INFO - HTTP Request: POST https://amhpflwemffmokxuurpk.supabase.co/rest/v1/technical_indicators "HTTP/2 201 Created"
+2025-08-15 19:56:20,498 - httpx - INFO - HTTP Request: POST https://amhpflwemffmokxuurpk.supabase.co/rest/v1/sentiment_data "HTTP/2 201 Created"
+2025-08-15 19:56:20,601 - httpx - INFO - HTTP Request: POST https://amhpflwemffmokxuurpk.supabase.co/rest/v1/trading_signals "HTTP/2 201 Created"
+2025-08-15 19:56:20,602 - __main__ - INFO - Generated BUY signal for DOGE/USDT with confidence 0.550
+2025-08-15 19:56:20,602 - __main__ - INFO - Analysis completed for BTC/USDT
+2025-08-15 19:56:20,602 - __main__ - INFO - Analysis completed for ETH/USDT
+2025-08-15 19:56:20,602 - __main__ - INFO - Analysis completed for BNB/USDT
+2025-08-15 19:56:20,602 - __main__ - INFO - Analysis completed for SOL/USDT
+2025-08-15 19:56:20,602 - __main__ - INFO - Analysis completed for DOGE/USDT
+2025-08-15 19:56:20,602 - __main__ - INFO - Analysis cycle completed
+/home/michal/alpha_sentinel/src/dashboard/dashboard.py:454: FutureWarning:
+
+Styler.applymap has been deprecated. Use Styler.map instead.
+
+2025-08-15 20:01:20,604 - __main__ - INFO - Starting analysis cycle
+Error inserting market data: Object of type datetime is not JSON serializable
+2025-08-15 20:01:21,452 - __main__ - ERROR - Failed to store market data for BTC/USDT
+Error inserting market data: Object of type datetime is not JSON serializable
+2025-08-15 20:01:21,861 - __main__ - ERROR - Failed to store market data for ETH/USDT
+Error inserting market data: Object of type datetime is not JSON serializable
+2025-08-15 20:01:22,273 - __main__ - ERROR - Failed to store market data for BNB/USDT
+Error inserting market data: Object of type datetime is not JSON serializable
+2025-08-15 20:01:22,680 - __main__ - ERROR - Failed to store market data for SOL/USDT
+Error inserting market data: Object of type datetime is not JSON serializable
+2025-08-15 20:01:23,090 - __main__ - ERROR - Failed to store market data for DOGE/USDT
+2025-08-15 20:01:23,090 - __main__ - INFO - Analyzing BTC/USDT
+2025-08-15 20:01:23,398 - httpx - INFO - HTTP Request: GET https://amhpflwemffmokxuurpk.supabase.co/rest/v1/market_data?select=%2A&symbol=eq.BTC%2FUSDT&order=timestamp.desc&limit=100 "HTTP/2 200 OK"
+2025-08-15 20:01:23,506 - httpx - INFO - HTTP Request: POST https://amhpflwemffmokxuurpk.supabase.co/rest/v1/technical_indicators "HTTP/2 201 Created"
+2025-08-15 20:01:26,474 - httpx - INFO - HTTP Request: POST https://amhpflwemffmokxuurpk.supabase.co/rest/v1/sentiment_data "HTTP/2 201 Created"
+2025-08-15 20:01:26,571 - httpx - INFO - HTTP Request: POST https://amhpflwemffmokxuurpk.supabase.co/rest/v1/trading_signals "HTTP/2 201 Created"
+2025-08-15 20:01:26,572 - __main__ - INFO - Generated SELL signal for BTC/USDT with confidence 0.550
+2025-08-15 20:01:26,573 - __main__ - INFO - Analyzing ETH/USDT
+2025-08-15 20:01:26,672 - httpx - INFO - HTTP Request: GET https://amhpflwemffmokxuurpk.supabase.co/rest/v1/market_data?select=%2A&symbol=eq.ETH%2FUSDT&order=timestamp.desc&limit=100 "HTTP/2 200 OK"
+2025-08-15 20:01:26,791 - httpx - INFO - HTTP Request: POST https://amhpflwemffmokxuurpk.supabase.co/rest/v1/technical_indicators "HTTP/2 201 Created"
+/home/michal/alpha_sentinel/src/dashboard/dashboard.py:454: FutureWarning:
+
+Styler.applymap has been deprecated. Use Styler.map instead.
+
+2025-08-15 20:01:27,887 - httpx - INFO - HTTP Request: POST https://amhpflwemffmokxuurpk.supabase.co/rest/v1/sentiment_data "HTTP/2 201 Created"
+2025-08-15 20:01:27,976 - httpx - INFO - HTTP Request: POST https://amhpflwemffmokxuurpk.supabase.co/rest/v1/trading_signals "HTTP/2 201 Created"
+2025-08-15 20:01:27,977 - __main__ - INFO - Generated HOLD signal for ETH/USDT with confidence 0.550
+2025-08-15 20:01:27,977 - __main__ - INFO - Analyzing BNB/USDT
+2025-08-15 20:01:28,063 - httpx - INFO - HTTP Request: GET https://amhpflwemffmokxuurpk.supabase.co/rest/v1/market_data?select=%2A&symbol=eq.BNB%2FUSDT&order=timestamp.desc&limit=100 "HTTP/2 200 OK"
+2025-08-15 20:01:28,156 - httpx - INFO - HTTP Request: POST https://amhpflwemffmokxuurpk.supabase.co/rest/v1/technical_indicators "HTTP/2 201 Created"
+2025-08-15 20:01:29,238 - httpx - INFO - HTTP Request: POST https://amhpflwemffmokxuurpk.supabase.co/rest/v1/sentiment_data "HTTP/2 201 Created"
+2025-08-15 20:01:29,329 - httpx - INFO - HTTP Request: POST https://amhpflwemffmokxuurpk.supabase.co/rest/v1/trading_signals "HTTP/2 201 Created"
+2025-08-15 20:01:29,330 - __main__ - INFO - Generated HOLD signal for BNB/USDT with confidence 0.383
+2025-08-15 20:01:29,331 - __main__ - INFO - Analyzing SOL/USDT
+2025-08-15 20:01:29,423 - httpx - INFO - HTTP Request: GET https://amhpflwemffmokxuurpk.supabase.co/rest/v1/market_data?select=%2A&symbol=eq.SOL%2FUSDT&order=timestamp.desc&limit=100 "HTTP/2 200 OK"
+2025-08-15 20:01:29,525 - httpx - INFO - HTTP Request: POST https://amhpflwemffmokxuurpk.supabase.co/rest/v1/technical_indicators "HTTP/2 201 Created"
+2025-08-15 20:01:30,331 - httpx - INFO - HTTP Request: POST https://amhpflwemffmokxuurpk.supabase.co/rest/v1/sentiment_data "HTTP/2 201 Created"
+2025-08-15 20:01:30,426 - httpx - INFO - HTTP Request: POST https://amhpflwemffmokxuurpk.supabase.co/rest/v1/trading_signals "HTTP/2 201 Created"
+2025-08-15 20:01:30,427 - __main__ - INFO - Generated HOLD signal for SOL/USDT with confidence 0.550
+2025-08-15 20:01:30,428 - __main__ - INFO - Analyzing DOGE/USDT
+2025-08-15 20:01:30,517 - httpx - INFO - HTTP Request: GET https://amhpflwemffmokxuurpk.supabase.co/rest/v1/market_data?select=%2A&symbol=eq.DOGE%2FUSDT&order=timestamp.desc&limit=100 "HTTP/2 200 OK"
+2025-08-15 20:01:30,625 - httpx - INFO - HTTP Request: POST https://amhpflwemffmokxuurpk.supabase.co/rest/v1/technical_indicators "HTTP/2 201 Created"
+/home/michal/alpha_sentinel/src/dashboard/dashboard.py:454: FutureWarning:
+
+Styler.applymap has been deprecated. Use Styler.map instead.
+
+2025-08-15 20:01:31,486 - httpx - INFO - HTTP Request: POST https://amhpflwemffmokxuurpk.supabase.co/rest/v1/sentiment_data "HTTP/2 201 Created"
+2025-08-15 20:01:31,573 - httpx - INFO - HTTP Request: POST https://amhpflwemffmokxuurpk.supabase.co/rest/v1/trading_signals "HTTP/2 201 Created"
+2025-08-15 20:01:31,575 - __main__ - INFO - Generated BUY signal for DOGE/USDT with confidence 0.550
+2025-08-15 20:01:31,575 - __main__ - INFO - Analysis completed for BTC/USDT
+2025-08-15 20:01:31,576 - __main__ - INFO - Analysis completed for ETH/USDT
+2025-08-15 20:01:31,576 - __main__ - INFO - Analysis completed for BNB/USDT
+2025-08-15 20:01:31,576 - __main__ - INFO - Analysis completed for SOL/USDT
+2025-08-15 20:01:31,576 - __main__ - INFO - Analysis completed for DOGE/USDT
+2025-08-15 20:01:31,576 - __main__ - INFO - Analysis cycle completed
+/home/michal/alpha_sentinel/src/dashboard/dashboard.py:454: FutureWarning:
+
+Styler.applymap has been deprecated. Use Styler.map instead.
+
+2025-08-15 20:06:31,578 - __main__ - INFO - Starting analysis cycle
+Error inserting market data: Object of type datetime is not JSON serializable
+2025-08-15 20:06:33,752 - __main__ - ERROR - Failed to store market data for BTC/USDT
+Error inserting market data: Object of type datetime is not JSON serializable
+2025-08-15 20:06:34,524 - __main__ - ERROR - Failed to store market data for ETH/USDT
+Error inserting market data: Object of type datetime is not JSON serializable
+2025-08-15 20:06:34,806 - __main__ - ERROR - Failed to store market data for BNB/USDT
+Error inserting market data: Object of type datetime is not JSON serializable
+2025-08-15 20:06:35,092 - __main__ - ERROR - Failed to store market data for SOL/USDT
+Error inserting market data: Object of type datetime is not JSON serializable
+2025-08-15 20:06:35,374 - __main__ - ERROR - Failed to store market data for DOGE/USDT
+2025-08-15 20:06:35,374 - __main__ - INFO - Analyzing BTC/USDT
+2025-08-15 20:06:36,131 - httpx - INFO - HTTP Request: GET https://amhpflwemffmokxuurpk.supabase.co/rest/v1/market_data?select=%2A&symbol=eq.BTC%2FUSDT&order=timestamp.desc&limit=100 "HTTP/2 200 OK"
+2025-08-15 20:06:36,538 - httpx - INFO - HTTP Request: POST https://amhpflwemffmokxuurpk.supabase.co/rest/v1/technical_indicators "HTTP/2 201 Created"
+2025-08-15 20:06:39,611 - httpx - INFO - HTTP Request: POST https://amhpflwemffmokxuurpk.supabase.co/rest/v1/sentiment_data "HTTP/2 201 Created"
+2025-08-15 20:06:39,728 - httpx - INFO - HTTP Request: POST https://amhpflwemffmokxuurpk.supabase.co/rest/v1/trading_signals "HTTP/2 201 Created"
+2025-08-15 20:06:39,729 - __main__ - INFO - Generated SELL signal for BTC/USDT with confidence 0.550
+2025-08-15 20:06:39,730 - __main__ - INFO - Analyzing ETH/USDT
+2025-08-15 20:06:39,846 - httpx - INFO - HTTP Request: GET https://amhpflwemffmokxuurpk.supabase.co/rest/v1/market_data?select=%2A&symbol=eq.ETH%2FUSDT&order=timestamp.desc&limit=100 "HTTP/2 200 OK"
+2025-08-15 20:06:39,991 - httpx - INFO - HTTP Request: POST https://amhpflwemffmokxuurpk.supabase.co/rest/v1/technical_indicators "HTTP/2 201 Created"
+2025-08-15 20:06:41,188 - httpx - INFO - HTTP Request: POST https://amhpflwemffmokxuurpk.supabase.co/rest/v1/sentiment_data "HTTP/2 201 Created"
+2025-08-15 20:06:41,455 - httpx - INFO - HTTP Request: POST https://amhpflwemffmokxuurpk.supabase.co/rest/v1/trading_signals "HTTP/2 201 Created"
+2025-08-15 20:06:41,455 - __main__ - INFO - Generated HOLD signal for ETH/USDT with confidence 0.550
+2025-08-15 20:06:41,456 - __main__ - INFO - Analyzing BNB/USDT
+2025-08-15 20:06:41,555 - httpx - INFO - HTTP Request: GET https://amhpflwemffmokxuurpk.supabase.co/rest/v1/market_data?select=%2A&symbol=eq.BNB%2FUSDT&order=timestamp.desc&limit=100 "HTTP/2 200 OK"
+2025-08-15 20:06:41,760 - httpx - INFO - HTTP Request: POST https://amhpflwemffmokxuurpk.supabase.co/rest/v1/technical_indicators "HTTP/2 201 Created"
+2025-08-15 20:06:43,092 - httpx - INFO - HTTP Request: POST https://amhpflwemffmokxuurpk.supabase.co/rest/v1/sentiment_data "HTTP/2 201 Created"
+2025-08-15 20:06:43,196 - httpx - INFO - HTTP Request: POST https://amhpflwemffmokxuurpk.supabase.co/rest/v1/trading_signals "HTTP/2 201 Created"
+2025-08-15 20:06:43,198 - __main__ - INFO - Generated HOLD signal for BNB/USDT with confidence 0.383
+2025-08-15 20:06:43,199 - __main__ - INFO - Analyzing SOL/USDT
+2025-08-15 20:06:43,400 - httpx - INFO - HTTP Request: GET https://amhpflwemffmokxuurpk.supabase.co/rest/v1/market_data?select=%2A&symbol=eq.SOL%2FUSDT&order=timestamp.desc&limit=100 "HTTP/2 200 OK"
+2025-08-15 20:06:43,509 - httpx - INFO - HTTP Request: POST https://amhpflwemffmokxuurpk.supabase.co/rest/v1/technical_indicators "HTTP/2 201 Created"
+2025-08-15 20:06:44,747 - httpx - INFO - HTTP Request: POST https://amhpflwemffmokxuurpk.supabase.co/rest/v1/sentiment_data "HTTP/2 201 Created"
+2025-08-15 20:06:44,841 - httpx - INFO - HTTP Request: POST https://amhpflwemffmokxuurpk.supabase.co/rest/v1/trading_signals "HTTP/2 201 Created"
+2025-08-15 20:06:44,842 - __main__ - INFO - Generated HOLD signal for SOL/USDT with confidence 0.550
+2025-08-15 20:06:44,842 - __main__ - INFO - Analyzing DOGE/USDT
+2025-08-15 20:06:44,936 - httpx - INFO - HTTP Request: GET https://amhpflwemffmokxuurpk.supabase.co/rest/v1/market_data?select=%2A&symbol=eq.DOGE%2FUSDT&order=timestamp.desc&limit=100 "HTTP/2 200 OK"
+2025-08-15 20:06:45,243 - httpx - INFO - HTTP Request: POST https://amhpflwemffmokxuurpk.supabase.co/rest/v1/technical_indicators "HTTP/2 201 Created"
+2025-08-15 20:06:46,474 - httpx - INFO - HTTP Request: POST https://amhpflwemffmokxuurpk.supabase.co/rest/v1/sentiment_data "HTTP/2 201 Created"
+2025-08-15 20:06:46,576 - httpx - INFO - HTTP Request: POST https://amhpflwemffmokxuurpk.supabase.co/rest/v1/trading_signals "HTTP/2 201 Created"
+2025-08-15 20:06:46,577 - __main__ - INFO - Generated BUY signal for DOGE/USDT with confidence 0.550
+2025-08-15 20:06:46,577 - __main__ - INFO - Analysis completed for BTC/USDT
+2025-08-15 20:06:46,577 - __main__ - INFO - Analysis completed for ETH/USDT
+2025-08-15 20:06:46,577 - __main__ - INFO - Analysis completed for BNB/USDT
+2025-08-15 20:06:46,578 - __main__ - INFO - Analysis completed for SOL/USDT
+2025-08-15 20:06:46,578 - __main__ - INFO - Analysis completed for DOGE/USDT
+2025-08-15 20:06:46,578 - __main__ - INFO - Analysis cycle completed
+/home/michal/alpha_sentinel/src/dashboard/dashboard.py:454: FutureWarning:
+
+Styler.applymap has been deprecated. Use Styler.map instead.
