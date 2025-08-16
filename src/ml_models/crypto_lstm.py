@@ -241,7 +241,23 @@ class CryptoPredictor:
 
     def load_model(self, filepath):
         """Load model and scaler"""
-        checkpoint = torch.load(filepath, map_location=self.device)
+        import torch
+        import torch.serialization
+        
+        # First try with weights_only=False for backward compatibility
+        try:
+            checkpoint = torch.load(filepath, map_location=self.device, weights_only=False)
+        except Exception as e:
+            # If that fails, try with safe globals
+            try:
+                torch.serialization.add_safe_globals(['sklearn.preprocessing._data.MinMaxScaler'])
+                checkpoint = torch.load(filepath, map_location=self.device, weights_only=True)
+            except Exception as e2:
+                # If both fail, provide clear error message
+                error_msg = f"Failed to load model from {filepath}. "
+                error_msg += f"First attempt failed: {str(e)}. "
+                error_msg += f"Fallback attempt failed: {str(e2)}"
+                raise RuntimeError(error_msg)
 
         self.scaler = checkpoint["scaler"]
         self.features = checkpoint["features"]

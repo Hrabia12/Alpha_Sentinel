@@ -11,6 +11,28 @@ import os
 import time  # Add missing import
 
 
+def parse_timestamp_safely(timestamp_str):
+    """Safely parse timestamp strings with various formats"""
+    if pd.isna(timestamp_str) or timestamp_str is None:
+        return pd.NaT
+        
+    try:
+        # Try ISO8601 format first (handles most cases)
+        return pd.to_datetime(timestamp_str, format='ISO8601')
+    except:
+        try:
+            # Fallback to mixed format parsing
+            return pd.to_datetime(timestamp_str, format='mixed', dayfirst=False)
+        except:
+            try:
+                # Last resort: try to parse with default settings
+                return pd.to_datetime(timestamp_str)
+            except:
+                # If all else fails, log the problematic timestamp and return NaT
+                st.warning(f"Could not parse timestamp: {timestamp_str}")
+                return pd.NaT
+
+
 def safe_datetime_filter(df, timestamp_column, hours_back=24):
     """Safely filter datetime data handling timezone issues"""
     if df.empty or timestamp_column not in df.columns:
@@ -19,7 +41,10 @@ def safe_datetime_filter(df, timestamp_column, hours_back=24):
     try:
         # Convert timestamp column to datetime if it's not already
         df_copy = df.copy()
-        df_copy[timestamp_column] = pd.to_datetime(df_copy[timestamp_column])
+        
+        # Handle various timestamp formats including microseconds and timezone info
+        if df_copy[timestamp_column].dtype == 'object':
+            df_copy[timestamp_column] = df_copy[timestamp_column].apply(parse_timestamp_safely)
 
         # Get current time
         now = datetime.now()
@@ -77,7 +102,8 @@ def load_performance_data():
 
         if result.data:
             df = pd.DataFrame(result.data)
-            df["timestamp"] = pd.to_datetime(df["timestamp"])
+            # Use our safe timestamp parser
+            df["timestamp"] = df["timestamp"].apply(parse_timestamp_safely)
             return df
 
     except Exception as e:
@@ -98,7 +124,8 @@ def load_trading_signals():
 
         if result.data:
             df = pd.DataFrame(result.data)
-            df["timestamp"] = pd.to_datetime(df["timestamp"])
+            # Use our safe timestamp parser
+            df["timestamp"] = df["timestamp"].apply(parse_timestamp_safely)
             return df
 
     except Exception as e:
@@ -123,7 +150,8 @@ def load_market_data(symbol="BTC/USDT", days=7):
 
         if result.data:
             df = pd.DataFrame(result.data)
-            df["timestamp"] = pd.to_datetime(df["timestamp"])
+            # Use our safe timestamp parser
+            df["timestamp"] = df["timestamp"].apply(parse_timestamp_safely)
             return df
 
     except Exception as e:
