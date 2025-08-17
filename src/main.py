@@ -6,6 +6,8 @@ from datetime import datetime, timedelta
 import os
 import sys
 from dotenv import load_dotenv
+import pytz
+from typing import Dict, List, Optional
 
 # Add parent directory to path for imports
 parent_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -32,6 +34,11 @@ logging.basicConfig(
 )
 
 logger = logging.getLogger(__name__)
+
+
+def get_utc_now():
+    """Get current UTC time"""
+    return datetime.now(pytz.UTC)
 
 
 class AlphaSentinel:
@@ -66,76 +73,43 @@ class AlphaSentinel:
 
     def _clean_data_for_json(self, data):
         """Clean data to make it JSON serializable"""
-        import pandas as pd
-        from datetime import datetime
-
         if isinstance(data, dict):
             cleaned = {}
             for key, value in data.items():
-                if isinstance(value, (pd.Timestamp, datetime)):
+                if isinstance(value, datetime):
+                    # Convert datetime to ISO format string
+                    if value.tzinfo is None:
+                        # If naive datetime, assume UTC
+                        value = pytz.UTC.localize(value)
                     cleaned[key] = value.isoformat()
-                elif isinstance(value, (pd.Series, pd.DataFrame)):
-                    # Convert pandas objects to native Python types
-                    cleaned[key] = (
-                        value.to_dict() if hasattr(value, "to_dict") else str(value)
-                    )
-                elif hasattr(value, "item"):  # numpy scalars
-                    cleaned[key] = value.item()
-                elif isinstance(value, (list, tuple)):
+                elif isinstance(value, (int, float, str, bool, type(None))):
+                    cleaned[key] = value
+                elif isinstance(value, list):
                     cleaned[key] = [self._clean_data_for_json(item) for item in value]
-                else:
+                elif isinstance(value, dict):
                     cleaned[key] = self._clean_data_for_json(value)
+                else:
+                    # Convert other types to string
+                    cleaned[key] = str(value)
             return cleaned
-        elif isinstance(data, (list, tuple)):
+        elif isinstance(data, list):
             return [self._clean_data_for_json(item) for item in data]
         else:
-            return self._clean_value(data)
-
-    def _clean_value(self, value):
-        """Clean individual values for JSON serialization"""
-        import pandas as pd
-        import numpy as np
-        from datetime import datetime
-
-        if isinstance(value, pd.Timestamp):
-            return value.isoformat()
-        elif isinstance(value, datetime):  # Handle Python datetime objects
-            return value.isoformat()
-        elif isinstance(value, (pd.Series, pd.DataFrame)):
-            return value.to_dict() if hasattr(value, "to_dict") else str(value)
-        elif isinstance(value, np.integer):
-            return int(value)
-        elif isinstance(value, np.floating):
-            return float(value)
-        elif isinstance(value, np.ndarray):
-            return value.tolist()
-        elif hasattr(value, "item"):  # Other numpy scalars
-            return value.item()
-        else:
-            return value
+            return str(data)
 
     def _load_ml_models(self):
-        """Load ML models for each symbol"""
-        # Ensure models directory exists
-        os.makedirs("models", exist_ok=True)
-
+        """Load pre-trained ML models"""
         for symbol in self.symbols:
-            model_path = f"models/{symbol.replace('/', '_')}_lstm.pth"
-            if os.path.exists(model_path):
+            model_filename = f"models/{symbol.replace('/', '_')}_lstm.pth"
+            if os.path.exists(model_filename):
                 try:
+                    from ml_models.crypto_lstm import CryptoPredictor
                     predictor = CryptoPredictor()
-                    predictor.load_model(model_path)
+                    predictor.load_model(model_filename)
                     self.ml_models[symbol] = predictor
                     logger.info(f"Loaded ML model for {symbol}")
                 except Exception as e:
-                    logger.error(f"Failed to load model for {symbol}: {e}")
-                    # Try to provide more helpful error information
-                    if "weights_only" in str(e):
-                        logger.warning(f"PyTorch compatibility issue detected for {symbol}. Consider retraining the model.")
-                    elif "MinMaxScaler" in str(e):
-                        logger.warning(f"Sklearn compatibility issue for {symbol}. Model may need to be retrained.")
-                    else:
-                        logger.warning(f"Unknown error loading model for {symbol}. Check model file integrity.")
+                    logger.error(f"Error loading ML model for {symbol}: {e}")
             else:
                 logger.info(f"No pre-trained model found for {symbol}. Model will be trained when needed.")
 
@@ -175,304 +149,169 @@ class AlphaSentinel:
 
         return None
 
-    def validate_signal_outcome(self, signal_data, current_price):
-        """Validate if a previous signal was correct and calculate P&L"""
+    async def collect_comprehensive_market_data(self, symbol):
+        """Collect comprehensive market data to fill empty database columns"""
         try:
-            signal_type = signal_data.get("signal_type")
-            signal_price = signal_data.get("price_at_signal")
-            stop_loss = signal_data.get("stop_loss")
-            take_profit = signal_data.get("take_profit")
+            # Get current market data
+            current_data = await self.data_collector.fetch_real_time_data(symbol)
             
-            if not all([signal_type, signal_price, current_price]):
+            if not current_data:
                 return None
             
-            signal_price = float(signal_price)
-            current_price = float(current_price)
+            # Get historical data for technical indicators
+            historical_data = await self.data_collector.fetch_historical_data(symbol, limit=100)
             
-            outcome = "pending"
-            pnl = 0.0
-            
-            if signal_type == "BUY":
-                if current_price >= take_profit:
-                    outcome = "correct"
-                    pnl = (current_price - signal_price) / signal_price * 100
-                elif current_price <= stop_loss:
-                    outcome = "incorrect"
-                    pnl = (stop_loss - signal_price) / signal_price * 100
+            if historical_data:
+                # Calculate technical indicators
+                indicators = self.indicator_calculator.calculate_all_indicators(historical_data)
+                
+                # Get sentiment data
+                sentiment_data = await self.sentiment_analyzer.analyze_sentiment(symbol)
+                
+                # Get market volatility metrics
+                if len(historical_data) > 20:
+                    recent_prices = historical_data['close'].tail(20)
+                    volatility = recent_prices.pct_change().std() * 100
+                    price_range = (recent_prices.max() - recent_prices.min()) / recent_prices.min() * 100
                 else:
-                    # Still in progress
-                    pnl = (current_price - signal_price) / signal_price * 100
+                    volatility = 0
+                    price_range = 0
+                
+                # Enhanced market data with all available information
+                enhanced_data = {
+                    "symbol": symbol,
+                    "timestamp": get_utc_now().isoformat(),
+                    "open": current_data.get("open"),
+                    "high": current_data.get("high"),
+                    "low": current_data.get("low"),
+                    "close": current_data.get("close"),
+                    "volume": current_data.get("volume"),
                     
-            elif signal_type == "SELL":
-                if current_price <= take_profit:
-                    outcome = "correct"
-                    pnl = (signal_price - current_price) / signal_price * 100
-                elif current_price >= stop_loss:
-                    outcome = "incorrect"
-                    pnl = (signal_price - stop_loss) / signal_price * 100
-                else:
-                    # Still in progress
-                    pnl = (signal_price - current_price) / signal_price * 100
-            
-            return {
-                "outcome": outcome,
-                "pnl": pnl,
-                "current_price": current_price,
-                "price_change_pct": pnl
-            }
-            
-        except Exception as e:
-            logger.error(f"Error validating signal outcome: {e}")
-            return None
-
-    async def validate_ml_predictions(self, symbol, current_price):
-        """Validate outcomes of previous ML predictions for a symbol"""
-        try:
-            # Get active predictions for this symbol
-            result = self.db_manager.client.table("ml_predictions").select("*").eq("symbol", symbol).eq("status", "active").execute()
-            
-            if not result.data:
-                return
-            
-            for prediction in result.data:
-                # Skip predictions that are too recent (less than 5 minutes old)
-                pred_time = datetime.fromisoformat(prediction["timestamp"].replace('Z', '+00:00'))
-                if (datetime.now() - pred_time).total_seconds() < 300:  # 5 minutes
-                    continue
-                
-                predicted_price = float(prediction["prediction_value"])
-                actual_price = float(prediction["actual_value"])
-                
-                # Calculate prediction accuracy (within 5% threshold)
-                price_error = abs(predicted_price - actual_price) / actual_price
-                is_correct = price_error <= 0.05  # 5% threshold
-                
-                # Update prediction with outcome
-                update_data = {
-                    "actual_value": current_price,  # Update with latest price
-                    "prediction_accuracy": 1.0 - price_error,
-                    "is_correct": is_correct,
-                    "status": "completed",
-                    "completed_at": datetime.now().isoformat()
+                    # Technical indicators
+                    "rsi": indicators.get("rsi", {}).get("value"),
+                    "macd": indicators.get("macd", {}).get("value"),
+                    "macd_signal": indicators.get("macd", {}).get("signal"),
+                    "macd_histogram": indicators.get("macd", {}).get("histogram"),
+                    "bollinger_upper": indicators.get("bollinger_bands", {}).get("upper"),
+                    "bollinger_middle": indicators.get("bollinger_bands", {}).get("middle"),
+                    "bollinger_lower": indicators.get("bollinger_bands", {}).get("lower"),
+                    "stochastic_k": indicators.get("stochastic", {}).get("k"),
+                    "stochastic_d": indicators.get("stochastic", {}).get("d"),
+                    "sma_20": indicators.get("sma", {}).get("20"),
+                    "sma_50": indicators.get("sma", {}).get("50"),
+                    "ema_12": indicators.get("ema", {}).get("12"),
+                    "ema_26": indicators.get("ema", {}).get("26"),
+                    
+                    # Sentiment data
+                    "sentiment_score": sentiment_data.get("compound_score"),
+                    "sentiment_label": sentiment_data.get("label"),
+                    "positive_sentiment": sentiment_data.get("positive_score"),
+                    "negative_sentiment": sentiment_data.get("negative_score"),
+                    "neutral_sentiment": sentiment_data.get("neutral_score"),
+                    
+                    # Market metrics
+                    "volatility_20": volatility,
+                    "price_range_20": price_range,
+                    "volume_sma_20": historical_data['volume'].tail(20).mean() if len(historical_data) > 20 else None,
+                    
+                    # Additional market context
+                    "market_trend": "bullish" if indicators.get("sma", {}).get("20", 0) > indicators.get("sma", {}).get("50", 0) else "bearish",
+                    "rsi_signal": "oversold" if indicators.get("rsi", {}).get("value", 50) < 30 else "overbought" if indicators.get("rsi", {}).get("value", 50) > 70 else "neutral",
+                    "macd_signal": "bullish" if indicators.get("macd", {}).get("histogram", 0) > 0 else "bearish"
                 }
                 
-                cleaned_update = self._clean_data_for_json(update_data)
+                return enhanced_data
                 
-                try:
-                    self.db_manager.client.table("ml_predictions").update(cleaned_update).eq("id", prediction["id"]).execute()
-                    logger.info(f"ML prediction {prediction['id']} validated: {'correct' if is_correct else 'incorrect'}, error: {price_error:.2%}")
-                except Exception as e:
-                    logger.error(f"Error updating ML prediction outcome: {e}")
-                    
         except Exception as e:
-            logger.error(f"Error validating ML predictions: {e}")
-
-    async def validate_previous_signals(self, symbol, current_price):
-        """Validate outcomes of previous active signals for a symbol"""
-        try:
-            # Get active signals for this symbol
-            result = self.db_manager.client.table("trading_signals").select("*").eq("symbol", symbol).eq("status", "active").execute()
-            
-            if not result.data:
-                return
-            
-            for signal in result.data:
-                # Skip signals that are too recent (less than 5 minutes old)
-                signal_time = datetime.fromisoformat(signal["timestamp"].replace('Z', '+00:00'))
-                if (datetime.now() - signal_time).total_seconds() < 300:  # 5 minutes
-                    continue
-                
-                # Validate the signal outcome
-                outcome_data = self.validate_signal_outcome(signal, current_price)
-                
-                if outcome_data and outcome_data["outcome"] != "pending":
-                    # Update signal with outcome
-                    update_data = {
-                        "outcome": outcome_data["outcome"],
-                        "pnl": outcome_data["pnl"],
-                        "current_price": outcome_data["current_price"],
-                        "status": "completed",
-                        "completed_at": datetime.now().isoformat()
-                    }
-                    
-                    cleaned_update = self._clean_data_for_json(update_data)
-                    
-                    try:
-                        self.db_manager.client.table("trading_signals").update(cleaned_update).eq("id", signal["id"]).execute()
-                        logger.info(f"Signal {signal['id']} outcome: {outcome_data['outcome']}, P&L: {outcome_data['pnl']:.2f}%")
-                    except Exception as e:
-                        logger.error(f"Error updating signal outcome: {e}")
-                        
-        except Exception as e:
-            logger.error(f"Error validating previous signals: {e}")
+            logger.error(f"Error collecting comprehensive market data: {e}")
+            return None
 
     async def analyze_symbol(self, symbol):
-        """Perform complete analysis for a symbol"""
+        """Analyze a symbol with comprehensive data collection and signal validation"""
         try:
-            logger.info(f"Analyzing {symbol}")
-
-            # Import pandas here to avoid potential issues
-            import pandas as pd
-
-            # 1. Get recent market data from database
-            recent_data = self.db_manager.get_recent_data(symbol, limit=100)
-
-            if len(recent_data) < 20:
-                logger.warning(f"Insufficient data for {symbol}, collecting more...")
-                # Get historical data if we don't have enough
-                historical_df = await self.data_collector.fetch_historical_data(
-                    symbol, "1h", 7
-                )
-                if not historical_df.empty:
-                    # Store historical data with proper data cleaning
-                    for _, row in historical_df.iterrows():
-                        row_dict = row.to_dict()
-                        cleaned_row = self._clean_data_for_json(row_dict)
-                        self.db_manager.insert_market_data(cleaned_row)
-                    recent_data = self.db_manager.get_recent_data(symbol, limit=100)
-
-            if len(recent_data) < 20:
-                logger.error(f"Still insufficient data for {symbol}")
+            logger.info(f"Starting comprehensive analysis for {symbol}")
+            
+            # Collect comprehensive market data
+            market_data = await self.collect_comprehensive_market_data(symbol)
+            
+            if not market_data:
+                logger.warning(f"Could not collect market data for {symbol}")
                 return
-
-            # Convert to DataFrame
-            df = pd.DataFrame(recent_data)
-            df = df.sort_values("timestamp")
-
-            # 2. Calculate technical indicators
-            df_with_indicators = self.indicator_calculator.calculate_all_indicators(df)
-            latest_indicators = self.indicator_calculator.get_latest_indicators(
-                df_with_indicators
-            )
-
-            # Store indicators in database
-            indicators_data = {
-                "timestamp": datetime.now().isoformat(),
-                "symbol": symbol,
-                **latest_indicators,
-            }
-
-            # Clean indicators data for JSON serialization
-            cleaned_indicators = self._clean_data_for_json(indicators_data)
-
+            
+            # Store enhanced market data
             try:
-                self.db_manager.client.table("technical_indicators").insert(
-                    cleaned_indicators
-                ).execute()
+                cleaned_data = self._clean_data_for_json(market_data)
+                self.db_manager.insert_market_data(cleaned_data)
+                logger.info(f"Enhanced market data stored for {symbol}")
             except Exception as e:
-                logger.error(f"Error storing indicators: {e}")
-
-            # 3. ML Prediction
-            ml_prediction = None
-            if symbol in self.ml_models:
+                logger.error(f"Error storing enhanced market data: {e}")
+            
+            # Get current price for validation
+            current_price = market_data.get("close")
+            if not current_price:
+                logger.warning(f"No current price available for {symbol}")
+                return
+            
+            # Validate all signals after 10 minutes
+            await self.validate_all_signals(symbol, current_price)
+            
+            # Generate new trading signals
+            signals = await self.signal_generator.generate_signals(symbol, market_data)
+            
+            # Store signals with enhanced data
+            for signal in signals:
+                enhanced_signal = {
+                    **signal,
+                    "market_conditions": {
+                        "rsi": market_data.get("rsi"),
+                        "macd_signal": market_data.get("macd_signal"),
+                        "market_trend": market_data.get("market_trend"),
+                        "volatility": market_data.get("volatility_20"),
+                        "sentiment": market_data.get("sentiment_label")
+                    },
+                    "technical_indicators": {
+                        "bollinger_position": "upper" if current_price > market_data.get("bollinger_upper", 0) else "lower" if current_price < market_data.get("bollinger_lower", 0) else "middle",
+                        "sma_cross": "bullish" if market_data.get("sma_20", 0) > market_data.get("sma_50", 0) else "bearish",
+                        "rsi_zone": market_data.get("rsi_signal")
+                    }
+                }
+                
                 try:
-                    predictions = self.ml_models[symbol].predict(
-                        df_with_indicators, steps_ahead=1
-                    )
-                    if len(predictions) > 0:
-                        current_price = float(df["close"].iloc[-1])
-                        predicted_price = float(predictions[0])
-                        
-                        ml_prediction = {
-                            "predicted_price": predicted_price,
-                            "current_price": current_price,
-                            "confidence": 0.7,  # Default confidence
-                        }
-
-                        # Store prediction in database with more details
-                        prediction_data = {
-                            "timestamp": datetime.now().isoformat(),
-                            "symbol": symbol,
-                            "model_name": "lstm",
-                            "prediction_value": predicted_price,
-                            "actual_value": current_price,  # Current price becomes actual value
-                            "confidence_score": ml_prediction["confidence"],
-                            "prediction_type": "price_prediction",
-                            "timeframe": "1_step_ahead",
-                            "status": "active"
-                        }
-
-                        cleaned_prediction = self._clean_data_for_json(prediction_data)
-                        self.db_manager.insert_prediction(cleaned_prediction)
-                        
-                        logger.info(f"ML prediction recorded for {symbol}: {predicted_price:.2f} (current: {current_price:.2f})")
-
+                    cleaned_signal = self._clean_data_for_json(enhanced_signal)
+                    self.db_manager.insert_trading_signal(cleaned_signal)
+                    logger.info(f"Enhanced trading signal stored for {symbol}")
                 except Exception as e:
-                    logger.error(f"ML prediction failed for {symbol}: {e}")
-            else:
-                logger.info(f"No ML model available for {symbol}")
-
-            # 4. Sentiment Analysis
-            sentiment_data = self.sentiment_analyzer.aggregate_sentiment_data(
-                symbol.split("/")[0]
+                    logger.error(f"Error storing enhanced trading signal: {e}")
+            
+            # Generate ML predictions
+            predictions = await self.ml_models[symbol].predict(
+                self.indicator_calculator.calculate_all_indicators(historical_data), steps_ahead=1
             )
-
-            # Store sentiment data
-            sentiment_record = {
-                "timestamp": datetime.now().isoformat(),
-                "symbol": symbol,
-                "source": "aggregated",
-                "sentiment_score": sentiment_data.get("aggregate_sentiment", 0),
-                "confidence": sentiment_data.get("confidence", 0),
-            }
-
-            cleaned_sentiment = self._clean_data_for_json(sentiment_record)
-
-            try:
-                self.db_manager.client.table("sentiment_data").insert(
-                    cleaned_sentiment
-                ).execute()
-            except Exception as e:
-                logger.error(f"Error storing sentiment: {e}")
-
-            # 5. Generate Trading Signal
-            current_price = float(df["close"].iloc[-1])
-
-            signal = self.signal_generator.generate_trading_signal(
-                symbol=symbol,
-                current_price=current_price,
-                technical_indicators=latest_indicators,
-                ml_prediction=ml_prediction,
-                sentiment_data=sentiment_data,
-            )
-
-            # Store signal in database
-            signal_data = {
-                "timestamp": signal["timestamp"].isoformat(),
-                "symbol": signal["symbol"],
-                "signal_type": signal["signal_type"],
-                "confidence": signal["confidence"],
-                "price_at_signal": signal["current_price"],
-                "stop_loss": signal["stop_loss"],
-                "take_profit": signal["take_profit"],
-                "reason": "; ".join(signal["reasons"]),
-                "status": "active",  # Track signal status
-                "technical_reasons": [r for r in signal["reasons"] if any(tech in r.lower() for tech in ["rsi", "macd", "bollinger", "stochastic", "moving average"])],
-                "sentiment_reasons": [r for r in signal["reasons"] if any(sent in r.lower() for sent in ["sentiment", "fear", "greed", "news"])],
-                "ml_reasons": [r for r in signal["reasons"] if any(ml in r.lower() for ml in ["prediction", "ml", "model"])]
-            }
-
-            cleaned_signal = self._clean_data_for_json(signal_data)
-
-            try:
-                result = self.db_manager.client.table("trading_signals").insert(
-                    cleaned_signal
-                ).execute()
-                logger.info(
-                    f"Generated {signal['signal_type']} signal for {symbol} with confidence {signal['confidence']:.3f}"
-                )
+            
+            # Store predictions with enhanced context
+            for prediction in predictions:
+                enhanced_prediction = {
+                    **prediction,
+                    "market_context": {
+                        "trend": market_data.get("market_trend"),
+                        "volatility": market_data.get("volatility_20"),
+                        "sentiment": market_data.get("sentiment_score"),
+                        "rsi_zone": market_data.get("rsi_signal"),
+                        "macd_signal": market_data.get("macd_signal")
+                    }
+                }
                 
-                # Now validate previous signals and ML predictions for this symbol
-                await self.validate_previous_signals(symbol, current_price)
-                await self.validate_ml_predictions(symbol, current_price)
-                
-            except Exception as e:
-                logger.error(f"Error storing signal: {e}")
-
-            return signal
-
+                try:
+                    cleaned_prediction = self._clean_data_for_json(enhanced_prediction)
+                    self.db_manager.insert_ml_prediction(cleaned_prediction)
+                    logger.info(f"Enhanced ML prediction stored for {symbol}")
+                except Exception as e:
+                    logger.error(f"Error storing enhanced ML prediction: {e}")
+            
+            logger.info(f"Comprehensive analysis completed for {symbol}")
+            
         except Exception as e:
-            logger.error(f"Error analyzing {symbol}: {e}")
+            logger.error(f"Error during comprehensive analysis of {symbol}: {e}")
 
     async def run_analysis_cycle(self):
         """Run one complete analysis cycle for all symbols"""
@@ -499,6 +338,234 @@ class AlphaSentinel:
                 logger.info(f"Analysis completed for {symbol}")
 
         logger.info("Analysis cycle completed")
+
+    def validate_signal_outcome(self, signal_data, current_price):
+        """Validate if a previous signal was correct and calculate P&L after 10 minutes"""
+        try:
+            signal_type = signal_data.get("signal_type")
+            signal_price = signal_data.get("price_at_signal")
+            stop_loss = signal_data.get("stop_loss")
+            take_profit = signal_data.get("take_profit")
+            signal_timestamp = signal_data.get("timestamp")
+            
+            if not all([signal_type, signal_price, current_price, signal_timestamp]):
+                return None
+            
+            signal_price = float(signal_price)
+            current_price = float(current_price)
+            
+            # Calculate time difference since signal creation
+            if isinstance(signal_timestamp, str):
+                signal_time = datetime.fromisoformat(signal_timestamp.replace('Z', '+00:00'))
+            else:
+                signal_time = signal_timestamp
+                
+            if signal_time.tzinfo is None:
+                signal_time = pytz.UTC.localize(signal_time)
+            
+            current_utc = get_utc_now()
+            time_diff_minutes = (current_utc - signal_time).total_seconds() / 60
+            
+            # Only validate signals that are at least 10 minutes old
+            if time_diff_minutes < 10:
+                return {
+                    "outcome": "pending",
+                    "pnl": 0.0,
+                    "current_price": current_price,
+                    "price_change_pct": 0.0,
+                    "time_since_signal": time_diff_minutes,
+                    "verification_status": "waiting_for_10min"
+                }
+            
+            outcome = "pending"
+            pnl = 0.0
+            verification_status = "verified"
+            
+            if signal_type == "BUY":
+                if current_price >= take_profit:
+                    outcome = "correct"
+                    pnl = (current_price - signal_price) / signal_price * 100
+                elif current_price <= stop_loss:
+                    outcome = "incorrect"
+                    pnl = (stop_loss - signal_price) / signal_price * 100
+                else:
+                    # Still in progress after 10 minutes
+                    pnl = (current_price - signal_price) / signal_price * 100
+                    if pnl > 0:
+                        outcome = "profitable"
+                    else:
+                        outcome = "unprofitable"
+                    
+            elif signal_type == "SELL":
+                if current_price <= take_profit:
+                    outcome = "correct"
+                    pnl = (signal_price - current_price) / signal_price * 100
+                elif current_price >= stop_loss:
+                    outcome = "incorrect"
+                    pnl = (signal_price - stop_loss) / signal_price * 100
+                else:
+                    # Still in progress after 10 minutes
+                    pnl = (signal_price - current_price) / signal_price * 100
+                    if pnl > 0:
+                        outcome = "profitable"
+                    else:
+                        outcome = "unprofitable"
+            
+            return {
+                "outcome": outcome,
+                "pnl": pnl,
+                "current_price": current_price,
+                "price_change_pct": pnl,
+                "time_since_signal": time_diff_minutes,
+                "verification_status": verification_status
+            }
+            
+        except Exception as e:
+            logger.error(f"Error validating signal outcome: {e}")
+            return None
+
+    async def validate_all_signals(self, symbol, current_price):
+        """Validate all active signals for a symbol after 10 minutes"""
+        try:
+            # Get all active signals for this symbol
+            result = self.db_manager.client.table("trading_signals").select("*").eq("symbol", symbol).eq("status", "active").execute()
+            
+            if not result.data:
+                return
+            
+            validated_count = 0
+            correct_count = 0
+            
+            for signal in result.data:
+                # Validate signal outcome
+                outcome_data = self.validate_signal_outcome(signal, current_price)
+                
+                if outcome_data and outcome_data.get("verification_status") == "verified":
+                    # Update signal with outcome
+                    update_data = {
+                        "outcome": outcome_data["outcome"],
+                        "pnl": outcome_data["pnl"],
+                        "current_price_at_verification": outcome_data["current_price"],
+                        "verification_timestamp": get_utc_now().isoformat(),
+                        "time_since_signal_minutes": outcome_data["time_since_signal"],
+                        "verification_status": "verified"
+                    }
+                    
+                    # If signal reached take-profit or stop-loss, mark as completed
+                    if outcome_data["outcome"] in ["correct", "incorrect"]:
+                        update_data["status"] = "completed"
+                        update_data["completed_at"] = get_utc_now().isoformat()
+                    
+                    cleaned_update = self._clean_data_for_json(update_data)
+                    
+                    try:
+                        self.db_manager.client.table("trading_signals").update(cleaned_update).eq("id", signal["id"]).execute()
+                        
+                        if outcome_data["outcome"] in ["correct", "profitable"]:
+                            correct_count += 1
+                        validated_count += 1
+                        
+                        logger.info(f"Signal {signal['id']} validated: {outcome_data['outcome']}, P&L: {outcome_data['pnl']:.2f}%")
+                        
+                    except Exception as e:
+                        logger.error(f"Error updating signal outcome: {e}")
+            
+            # Calculate and log overall accuracy
+            if validated_count > 0:
+                accuracy = (correct_count / validated_count) * 100
+                logger.info(f"Signal validation complete for {symbol}: {correct_count}/{validated_count} correct ({accuracy:.1f}%)")
+                
+        except Exception as e:
+            logger.error(f"Error validating signals: {e}")
+
+    async def validate_ml_predictions(self, symbol, current_price):
+        """Validate outcomes of previous ML predictions for a symbol"""
+        try:
+            # Get active predictions for this symbol
+            result = self.db_manager.client.table("ml_predictions").select("*").eq("symbol", symbol).eq("status", "active").execute()
+            
+            if not result.data:
+                return
+            
+            for prediction in result.data:
+                # Skip predictions that are too recent (less than 5 minutes old)
+                pred_time = datetime.fromisoformat(prediction["timestamp"].replace('Z', '+00:00'))
+                if pred_time.tzinfo is None:
+                    pred_time = pytz.UTC.localize(pred_time)
+                
+                current_utc = get_utc_now()
+                if (current_utc - pred_time).total_seconds() < 300:  # 5 minutes
+                    continue
+                
+                predicted_price = float(prediction["prediction_value"])
+                actual_price = float(prediction["actual_value"])
+                
+                # Calculate prediction accuracy (within 5% threshold)
+                price_error = abs(predicted_price - actual_price) / actual_price
+                is_correct = price_error <= 0.05  # 5% threshold
+                
+                # Update prediction with outcome
+                update_data = {
+                    "actual_value": current_price,  # Update with latest price
+                    "prediction_accuracy": 1.0 - price_error,
+                    "is_correct": is_correct,
+                    "status": "completed",
+                    "completed_at": get_utc_now().isoformat()
+                }
+                
+                cleaned_update = self._clean_data_for_json(update_data)
+                
+                try:
+                    self.db_manager.client.table("ml_predictions").update(cleaned_update).eq("id", prediction["id"]).execute()
+                    logger.info(f"ML prediction {prediction['id']} validated: {'correct' if is_correct else 'incorrect'}, error: {price_error:.2%}")
+                except Exception as e:
+                    logger.error(f"Error updating ML prediction outcome: {e}")
+                    
+        except Exception as e:
+            logger.error(f"Error validating ML predictions: {e}")
+
+    async def validate_previous_signals(self, symbol, current_price):
+        """Validate outcomes of previous active signals for a symbol"""
+        try:
+            # Get active signals for this symbol
+            result = self.db_manager.client.table("trading_signals").select("*").eq("symbol", symbol).eq("status", "active").execute()
+            
+            if not result.data:
+                return
+            
+            for signal in result.data:
+                # Skip signals that are too recent (less than 5 minutes old)
+                signal_time = datetime.fromisoformat(signal["timestamp"].replace('Z', '+00:00'))
+                if signal_time.tzinfo is None:
+                    signal_time = pytz.UTC.localize(signal_time)
+                
+                current_utc = get_utc_now()
+                if (current_utc - signal_time).total_seconds() < 300:  # 5 minutes
+                    continue
+                
+                # Validate the signal outcome
+                outcome_data = self.validate_signal_outcome(signal, current_price)
+                
+                if outcome_data and outcome_data["outcome"] != "pending":
+                    # Update signal with outcome
+                    update_data = {
+                        "outcome": outcome_data["outcome"],
+                        "pnl": outcome_data["pnl"],
+                        "current_price": outcome_data["current_price"],
+                        "status": "completed",
+                        "completed_at": get_utc_now().isoformat()
+                    }
+                    
+                    cleaned_update = self._clean_data_for_json(update_data)
+                    
+                    try:
+                        self.db_manager.client.table("trading_signals").update(cleaned_update).eq("id", signal["id"]).execute()
+                        logger.info(f"Signal {signal['id']} outcome: {outcome_data['outcome']}, P&L: {outcome_data['pnl']:.2f}%")
+                    except Exception as e:
+                        logger.error(f"Error updating signal outcome: {e}")
+                        
+        except Exception as e:
+            logger.error(f"Error validating previous signals: {e}")
 
     def schedule_jobs(self):
         """Schedule recurring jobs"""
